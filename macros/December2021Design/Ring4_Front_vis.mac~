@@ -1,0 +1,102 @@
+/vis/open OGL 600x600-0+0
+/vis/viewer/set/autoRefresh false
+/vis/verbose errors
+/vis/drawVolume
+/vis/viewer/set/viewpointVector -1 0 0
+/vis/viewer/set/lightsVector -1 0 0
+/vis/viewer/set/style surface
+/vis/viewer/set/auxiliaryEdge true
+/vis/viewer/set/lineSegmentsPerCircle 100
+/vis/scene/add/hits
+/vis/scene/endOfEventAction accumulate
+#/vis/set/textColour green
+#/vis/set/textLayout right
+#/vis/scene/add/text2D 0.9 -.9 24 ! ! Xen
+#/vis/set/textLayout    # Revert to normal (left adjusted) layout
+#/vis/set/textColour    # Revert to default text colour (blue)
+#
+# Axes, scale, etc.
+/vis/scene/add/scale   # Simple scale line
+/vis/scene/add/axes    # Simple axes: x=red, y=green, z=blue.
+/vis/scene/add/eventID # Drawn at end of event
+/vis/scene/add/date    # Date stamp
+#/vis/scene/add/logo2D  # Simple logo
+#/vis/scene/add/logo    # 3D logo
+#
+# Frame
+/vis/set/colour red
+/vis/set/lineWidth 2
+#/vis/scene/add/frame   # Simple frame around the view
+#/vis/set/colour        # Revert to default colour (white)
+#/vis/set/lineWidth     # Revert to default line width (1.)
+#
+# To get nice view
+/vis/viewer/set/style surface
+/vis/viewer/set/hiddenMarker true
+/vis/viewer/set/viewpointThetaPhi 100 150
+#
+# Re-establish auto refreshing and verbosity:
+/vis/viewer/set/autoRefresh true
+/vis/verbose warnings
+#
+# For file-based drivers, use this to create an empty detector view:
+#/vis/viewer/flush
+/control/verbose 0
+
+
+#  Geometry help:
+#
+#            | PMT|  
+#            ------      ________ Upper Interface
+#           /      \        
+#          / Upper  \        
+#         /  Guide   \      
+#        /   Cone     \  ________ Lower Interface 
+#        \            /
+#         \  Lower   /		
+#          \ Guide  /			
+#           \Cone  /     ________ Quartz-LG interface plane
+#            |    |
+#            |    | Quartz
+#            |    |
+#    --->    |    |
+#   Beam (Z) |_ __|
+#
+#               ^
+#              / \  (y)
+#               |
+#  (x) into screen
+
+
+#/Det/LightGuideLowerConeSideAngle 21 deg        #These are normally straight, unless the quartz is very narrow
+
+/Det/LightGuideLowerConeBackAngle 21 deg         #Angle between positive y axis (length of quartz) and the downstram lower cone surface 
+/Det/LightGuideLowerConeFrontAngle 28 deg        #Angle between positive y axis (length of quartz) and the upstram lower cone surface
+
+/Det/LightGuideLowerInterface 7.0 cm             #Distance between quartz-LG interface and lower interface plane
+/Det/LightGuideUpperInterface 337 mm             #Distance between quartz-LG interface and upper interface plane
+
+/Det/LightGuidePMTInterfaceOpeningX 7.0 cm       #These should stay fixed - set by the PMT size 
+/Det/LightGuidePMTInterfaceOpeningZ 7.0 cm
+
+/Det/LightGuideQuartzInterfaceOpeningX 9.2 cm    #These should be set according to the quartz size
+/Det/LightGuideQuartzInterfaceOpeningZ 2.2 cm    #But larger, according to the CAD model 
+
+/Det/QuartzSizeZ 15 mm
+/Det/QuartzSizeX 84 mm
+/Det/QuartzSizeY 140 mm                          #Without the 45 degree cut
+/Det/QuartzBevelSize 0.1 mm                      #Should not normally have a bevel. So the normal condition is 0 mm
+
+/Det/QuartzRotX -3 deg                           #rotate the quartz w.r.t. the light guide
+/Det/PolarRotation 3 deg                         #counter rotate the detector as a whole
+
+/Det/LightGuideQuartzToPMTOffset 0 mm            #offset of PMT along Z w.r.t quartz to center light on cathode
+
+#/Det/SetSegmentedRadDamageFlag                  #Uncomment to include quartz radiation damage. Segments the quartz into 2 cm bins with varying rad damange factors
+#/MOLLEROpt/QuartzRadDamage 70                   #Set peak quartz radaiation damage to 70 MRad (other possibility is 170)
+/Det/UpdateGeometry
+
+/Generator/EventHitRegion 1                      #1 = quartz, 2 = lower LG cone, 3 = upper LG cone, 4 = 2x2 mm^2 spot on center of quartz, 5 = 2x2 mm^2 on center of lower guide, 6 = 2x2 mm^2 spot on upper guide   
+
+
+#/run/beamOn 1000

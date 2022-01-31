@@ -1,0 +1,59 @@
+
+#  Geometry help:
+#
+#            | PMT|  
+#            ------      ________ Upper Interface
+#           /      \        
+#          / Upper  \        
+#         /  Guide   \      
+#        /   Cone     \  ________ Lower Interface 
+#        \            /
+#         \  Lower   /		
+#          \ Guide  /			
+#           \Cone  /     ________ Quartz-LG interface plane
+#            |    |
+#            |    | Quartz
+#            |    |
+#    --->    |    |
+#   Beam (Z) |_ __|
+#
+#               ^
+#              / \  (y)
+#               |
+#  (x) into screen
+
+
+#/Det/LightGuideLowerConeSideAngle 21 deg        #These are normally straight, unless the quartz is very narrow
+
+/Det/LightGuideLowerConeBackAngle 21 deg         #Angle between positive y axis (length of quartz) and the downstram lower cones surface 
+/Det/LightGuideLowerConeFrontAngle 28 deg        #Angle between positive y axis (length of quartz) and the upstram lower cones surface
+
+/Det/LightGuideLowerInterface 7.0 cm             #Distance between quartz-LG interface and lower interface plane
+/Det/LightGuideUpperInterface 329 mm             #Distance between quartz-LG interface and upper interface plane
+
+/Det/LightGuidePMTInterfaceOpeningX 7.0 cm       #These should stay fixed - set by the PMT size 
+/Det/LightGuidePMTInterfaceOpeningZ 7.0 cm
+
+/Det/LightGuideQuartzInterfaceOpeningX 9.2 cm   #These should be set according to the quartz size (always add 8 mm to quartz width)
+/Det/LightGuideQuartzInterfaceOpeningZ 2.2 cm    #But larger, according to the CAD model  (it's 1.7 cm for 1 cm thick quartz and 2.2 cm for 1.5 cm thick quartz)
+
+/Det/QuartzSizeZ 15 mm
+/Det/QuartzSizeX 84 mm
+/Det/QuartzSizeY 140 mm                          #Without the 45 degree cut
+/Det/QuartzBevelSize 0.1 mm                      #Should not normally have a bevel. So the normal condition is 0 mm
+
+/Det/QuartzRotX -3 deg                           #rotate the quartz w.r.t. the light guide
+/Det/PolarRotation 3 deg                         #counter rotate the detector as a whole
+
+/Det/LightGuideQuartzToPMTOffset 0 mm            #offset of PMT along Z w.r.t quartz to center light on cathode
+
+#/Det/SetSegmentedRadDamageFlag                  #Uncomment to include quartz radiation damage. Segments the quartz into 2 cm bins with varying rad damange factors
+#/MOLLEROpt/QuartzRadDamage 70                   #Set peak quartz radaiation damage to 70 MRad (other possibility is 170)
+
+/Det/UpdateGeometry
+
+/Generator/EventHitRegion 4                      #1 = quartz, 2 = lower LG cone, 3 = upper LG cone, 4 = 2x2 mm^2 spot on center of quartz, 5 = 2x2 mm^2 on center of lower guide, 6 = 2x2 mm^2 spot on upper guide   
+
+/RunAction/SetID 3
+/random/setSeeds 346082 823457
+/run/beamOn 1000

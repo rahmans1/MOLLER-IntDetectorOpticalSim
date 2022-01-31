@@ -1,0 +1,27 @@
+#/Det/LightGuideLowerConeSideAngle 22 deg
+/Det/QuartzRotX -3 deg
+/Det/LightGuideQuartzToPMTOffset 5 mm
+/Det/UpdateGeometry
+#/MOLLEROpt/QuartzRadDamage 170
+
+/RunAction/SetID 1
+/random/setSeeds 346082 823457
+/run/beamOn 100
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
