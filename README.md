@@ -1,4 +1,4 @@
-# Software Front-end for testing the MOLLER/P2 Integrating Electronics Prototypes 
+# Geant4 optical simulation of the thin quartz integrating detectors for the MOLLER experiment 
 
 ## This was successfully compiled with
 
