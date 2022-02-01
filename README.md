@@ -111,7 +111,7 @@ The simulation data is saved in a root file that can be given a unique ID from t
 
   One can then, for example, plot:
 
-  'tv__tree->Draw("MOLLERDetectorEvent.QuartzTrackLength:MOLLERDetectorEvent.QuartzSteps>>hist5(700,0,700,1600,0,1600)","MOLLERDetectorEvent.LightGuideTrackHit == 1","colz");'
+  * 'tv__tree->Draw("MOLLERDetectorEvent.QuartzTrackLength:MOLLERDetectorEvent.QuartzSteps>>hist5(700,0,700,1600,0,1600)","MOLLERDetectorEvent.LightGuideTrackHit == 1","colz");'
 
   etc.
 
