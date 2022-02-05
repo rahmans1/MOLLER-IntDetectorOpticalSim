@@ -303,7 +303,7 @@ void MOLLEROptMaterial::SetOpticalParameters()
  
   
 
-  ifstream optPropFile("OpticalPropertiesInputData.txt");
+  ifstream optPropFile("data/OpticalPropertiesInputData.txt");
   if(!optPropFile.is_open()){
     G4cout << "Cannot read optical input file named: OpticalPropertiesInputData.txt " << endl;
     G4cout << "The file must be located in the execution directory." << endl;
