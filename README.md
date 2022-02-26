@@ -10,6 +10,11 @@
 * The corresponding modified class files are in the 'data' subdirectory and need to be copied to 'G4SourceDir/source/processes/optical/'  
 * and G4 needs to recompiled.
 
+## Can also be compiled under eic-shell container
+
+* curl -L get.athena-eic.org | bash
+* ./eic-shell
+
 ## Project Layout
 
 * /cmake
