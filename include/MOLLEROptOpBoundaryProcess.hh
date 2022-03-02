@@ -4,6 +4,7 @@
 
 #include "G4LogicalSurface.hh"
 #include "G4LogicalBorderSurface.hh"
+#include "G4LogicalSkinSurface.hh"
 #include "G4ParallelWorldProcess.hh"
 #include "G4TransportationManager.hh"
 #include "G4PhysicalConstants.hh"
