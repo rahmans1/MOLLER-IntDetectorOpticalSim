@@ -64,7 +64,7 @@ class MOLLEROptOpBoundaryProcess : public G4OpBoundaryProcess
                          ->GetActiveNavigatorsIterator();
           G4ThreeVector global_normal = - (iNav[hNavId])->GetGlobalExitNormal(global_point, &valid);
           // incident angle
-          G4double incident_angle = GetIncidentAngle(old_momentum, global_normal);
+          G4double incident_angle = 180.0/pi*GetIncidentAngle(old_momentum, global_normal);
 
           // Retrieve material properties
           const std::vector<G4String> names = sMPT->GetMaterialPropertyNames();
