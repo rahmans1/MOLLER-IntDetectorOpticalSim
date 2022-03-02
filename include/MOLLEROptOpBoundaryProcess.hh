@@ -25,18 +25,32 @@ class MOLLEROptOpBoundaryProcess : public G4OpBoundaryProcess
 
     G4LogicalSurface* surface =
       G4LogicalBorderSurface::GetSurface(thePrePV, thePostPV);
+      
+    if (surface == NULL){
+      G4bool enteredDaughter=(thePostPV->GetMotherLogical() == thePrePV->GetLogicalVolume());
+      if(enteredDaughter){
+        surface = G4LogicalSkinSurface::GetSurface(thePostPV->GetLogicalVolume());
+        if(surface == NULL)
+          surface = G4LogicalSkinSurface::GetSurface(thePrePV->GetLogicalVolume());
+      }
+      else {
+        surface = G4LogicalSkinSurface::GetSurface(thePrePV->GetLogicalVolume());
+        if(surface == NULL)
+          surface = G4LogicalSkinSurface::GetSurface(thePostPV->GetLogicalVolume());
+      }
+    }
 
-    if (surface != nullptr) {
+    if (surface) {
 
       G4OpticalSurface* optical_surface =
         dynamic_cast<G4OpticalSurface*>(surface->GetSurfaceProperty());
 
-      if (optical_surface != nullptr) {
+      if (optical_surface) {
 
         G4MaterialPropertiesTable* sMPT =
           optical_surface->GetMaterialPropertiesTable();
 
-        if (sMPT != nullptr) {
+        if (sMPT) {
 
           // Incident angle calculation:
           // old momentum
