@@ -74,6 +74,8 @@ int main(int argc,char** argv) {
 
   G4VModularPhysicsList* physicsList = new FTFP_BERT;
   physicsList->ReplacePhysics(new G4EmStandardPhysics_option4());
+
+  /*
   G4OpticalPhysics* opticalPhysics = new G4OpticalPhysics();
 
   #if G4VERSION_NUMBER >= 1070
@@ -97,8 +99,9 @@ int main(int argc,char** argv) {
   opticalPhysics->SetTrackSecondariesFirst(kCerenkov, true);
   opticalPhysics->SetTrackSecondariesFirst(kScintillation, true);
   #endif
+  */
   
-  physicsList->RegisterPhysics(opticalPhysics);
+  physicsList->RegisterPhysics(new MOLLEROptPhysicsList());
   runManager->SetUserInitialization(physicsList);
 
   
