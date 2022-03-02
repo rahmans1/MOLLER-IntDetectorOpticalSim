@@ -81,10 +81,13 @@ class MOLLEROptOpBoundaryProcess : public G4OpBoundaryProcess
             [](const std::pair<double, G4String>& angle_key, double value) {
               return angle_key.first < value;
             });
-          const auto property_table = sMPT->GetProperty(lower_bound->second);
+            
+          if (lower_bound != angles_keys.end()){
+            const auto property_table = sMPT->GetProperty(lower_bound->second);
 
-          // Substitute for REFLECTIVITY
-          sMPT->AddProperty("REFLECTIVITY", property_table);
+            // Substitute for REFLECTIVITY
+            sMPT->AddProperty("REFLECTIVITY", property_table);
+          }
 
         }
       }
