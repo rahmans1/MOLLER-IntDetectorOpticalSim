@@ -1,4 +1,5 @@
 #include "MOLLEROptDetectorLightGuide.hh"
+#include "G4Version.hh"
 
 /*
   The light guides are locally defined with the y-axis as the direction between
