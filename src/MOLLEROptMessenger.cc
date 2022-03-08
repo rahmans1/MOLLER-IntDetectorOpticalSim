@@ -25,7 +25,7 @@ MOLLEROptMessenger::MOLLEROptMessenger(MOLLEROptConstruction* theConstruction)
 MOLLEROptMessenger::~MOLLEROptMessenger()
 {
   if (RadiationDamageCmd)   delete RadiationDamageCmd;
-  if (MOLLEROptDir)         delete MOLLEROptDir;
+  if (MOLLEROptDir)         delete MOLLEROptDir; 
 }
 
 void MOLLEROptMessenger::SetNewValue(G4UIcommand* command,G4String newValue)

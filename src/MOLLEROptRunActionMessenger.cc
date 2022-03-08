@@ -12,6 +12,11 @@ MOLLEROptRunActionMessenger::MOLLEROptRunActionMessenger(MOLLEROptRunAction* the
   MyRunIDCmd->SetParameterName("choice",false);
   MyRunIDCmd->AvailableForStates(G4State_PreInit,G4State_Idle);
 
+  MyRunFileNameCmd = new G4UIcmdWithAString("/RunAction/SetOutputName",this);
+  MyRunFileNameCmd->SetGuidance("Set the run output file name.");
+  MyRunFileNameCmd->SetParameterName("choice",false);
+  MyRunFileNameCmd->AvailableForStates(G4State_PreInit,G4State_Idle);
+
   ROOTFileFlagCmd = new G4UIcmdWithAnInteger("/RunAction/SetROOTFileFlag",this);
   ROOTFileFlagCmd->SetGuidance("Set the flag that specifies if ROOT files are written: 1 (yes)  0 (no).");
   ROOTFileFlagCmd->SetParameterName("flag",false);
@@ -22,6 +27,7 @@ MOLLEROptRunActionMessenger::MOLLEROptRunActionMessenger(MOLLEROptRunAction* the
 MOLLEROptRunActionMessenger::~MOLLEROptRunActionMessenger()
 {
   if (MyRunIDCmd)   delete MyRunIDCmd;
+  if (MyRunFileNameCmd)   delete MyRunFileNameCmd;
   if(ROOTFileFlagCmd) delete ROOTFileFlagCmd;
   if (Dir) delete Dir;
 }
@@ -31,6 +37,11 @@ void MOLLEROptRunActionMessenger::SetNewValue(G4UIcommand* command,G4String newV
   if( command == MyRunIDCmd ){
     if(RunAction)
       RunAction->SetMyRunID(MyRunIDCmd->GetNewIntValue(newValue)); 
+  }
+  if( command == MyRunFileNameCmd ){
+    if(RunAction){
+      RunAction->SetMyRunFileName(newValue);
+    }
   }
   if(command == ROOTFileFlagCmd){
     if(RunAction)

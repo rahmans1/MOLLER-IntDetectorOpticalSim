@@ -62,10 +62,10 @@ void MOLLEROptDetectorEvent::Initialize()
   LightGuideSteps.clear();  
   LightGuideSteps.resize(0);
 
-  // PMTTrackHit.clear();  
-  // PMTTrackHit.resize(0);
+  PMTTrackHit.clear();  
+  PMTTrackHit.resize(0);
 
-  PMTTrackHit = 0;
+  //PMTTrackHit = 0;
 
   LightGuideTrackHit.clear();  
   LightGuideTrackHit.resize(0);
@@ -99,7 +99,6 @@ void MOLLEROptDetectorEvent::Initialize()
   QuartzElectronStepLength.clear();
   QuartzElectronStepLength.resize(0);
 
-
   ElectronTrackID = 0;
   PhotonTrackID = 0;
   
@@ -114,6 +113,9 @@ void MOLLEROptDetectorEvent::Initialize()
 
   PMTWindowReflectionAngle.clear();  
   PMTWindowReflectionAngle.resize(0);
+
+  PMTAnodePulse.clear();
+  PMTAnodePulse.resize(0);
 
 }	
 
@@ -131,4 +133,12 @@ void MOLLEROptDetectorEvent::AddLightGuideTrackData(Float_t LGTrackL, Int_t LGSt
   LightGuideTrackLength.push_back(LGTrackL);
   LightGuideSteps.push_back(LGSteps);  
 }
+
+// void MOLLEROptDetectorEvent::AddTrackPMTSignal(Float_t TrackL, Float_t eng)
+// {
+  
+  
+//   LightGuideTrackLength.push_back(LGTrackL);
+//   LightGuideSteps.push_back(LGSteps);  
+// }
 

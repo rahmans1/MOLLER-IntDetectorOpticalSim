@@ -21,7 +21,9 @@ private:
   G4UIdirectory*             Dir;
   
   G4UIcmdWithAnInteger*      MyRunIDCmd;
+  G4UIcmdWithAString*        MyRunFileNameCmd;
   G4UIcmdWithAnInteger*      ROOTFileFlagCmd;
+
 
 };
 

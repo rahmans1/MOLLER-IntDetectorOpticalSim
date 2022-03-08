@@ -28,7 +28,7 @@ void MOLLEROptRunAction::BeginOfRunAction(const G4Run* aRun)
   CLHEP::HepRandom::showEngineStatus();
 
   TString InfoFile;
-  InfoFile.Form("MOLLEROpt_%04d.rndm",MyRunID);
+  InfoFile.Form("MOLLEROpt%s_%04d.rndm",runFileName.data(),MyRunID);
   CLHEP::HepRandom::saveEngineStatus(InfoFile); 
   
   if (G4VVisManager::GetConcreteInstance())
@@ -37,7 +37,7 @@ void MOLLEROptRunAction::BeginOfRunAction(const G4Run* aRun)
       UI->ApplyCommand("/vis/scene/notifyHandlers");
     } 
   
-  analysis->BeginOfRun(MyRunID,TrackingReadout);
+  analysis->BeginOfRun(MyRunID,runFileName,TrackingReadout);
 
 }
 
