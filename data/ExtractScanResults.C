@@ -7,6 +7,9 @@ void DoFit(TH1D *hst, Double_t *fitP, Double_t *fitE);
 Int_t FindGraph(Int_t fA, Int_t hR);
 
 std::vector <TGraphErrors*> fA_PEmean;
+std::vector <TGraphErrors*> fA_PEmean_hR2;
+std::vector <TGraphErrors*> fA_PEmean_hR3;
+
 std::vector <TGraphErrors*> fA_Exnse;
 
 void ExtractResults()
@@ -23,7 +26,7 @@ void ExtractResults()
   
   TH1D *hst, *tmp;
   TSpectrum *s = new TSpectrum(1);
-  Int_t c = 0, m;
+  Int_t m;
   TString runID, tmpStr, tok;
   Ssiz_t from = 0;
   Double_t fitP[4], fitE[4];
@@ -60,39 +63,49 @@ void ExtractResults()
     file = TFile::Open(line.data());
 
     hr = (TVectorD*)file->Get("HitRegion");
-    if((*hr)[0] == 1){
       
-      cout << line.data() << endl;
-      tmpStr = line.data();
-      tmpStr = tmpStr.ReplaceAll("MOLLEROpt_","");
-      runID = tmpStr.ReplaceAll(".root","");
-      // while(runID.Tokenize(tok,from,"_")){
-      
-      //   cout << tok << endl;
-      // }
-      
-      c++;
-      ba = (TVectorD*)file->Get("LowerConeBackFaceAngle");
-      fa = (TVectorD*)file->Get("LowerConeFrontFaceAngle");
-      
-      tmp = (TH1D*)file->Get("CathodeEventsDistrHist");
-      
-      hst = (TH1D*)tmp->Clone(Form("CEH_%s",runID.Data()));
-      hst->SetTitle("Photoelectron Distribution");
-      hst->GetXaxis()->SetTitle("Photoelectrons");
-      hst->SetDirectory(0);
- 
-      DoFit(hst,fitP,fitE);
-      m = FindGraph((*fa)[0],(*hr)[0]);
-      //cout << gr->GetN() << endl;
-      fA_PEmean[m]->SetPoint(fA_PEmean[m]->GetN(),(*ba)[0],fitP[1]);
-      fA_PEmean[m]->SetPointError(fA_PEmean[m]->GetN()-1,0,fitE[1]);
+    cout << line.data() << endl;
+    tmpStr = line.data();
+    tmpStr = tmpStr.ReplaceAll("MOLLEROpt_","");
+    runID = tmpStr.ReplaceAll(".root","");      
+    ba = (TVectorD*)file->Get("LowerConeBackFaceAngle");
+    fa = (TVectorD*)file->Get("LowerConeFrontFaceAngle");
+    
+    tmp = (TH1D*)file->Get("CathodeEventsDistrHist");
+    
+    hst = (TH1D*)tmp->Clone(Form("CEH_%s",runID.Data()));
+    hst->SetTitle("Photoelectron Distribution");
+    hst->GetXaxis()->SetTitle("Photoelectrons");
+    hst->SetDirectory(0);
 
-      fA_Exnse[m]->SetPoint(fA_Exnse[m]->GetN(),(*ba)[0],pow(fitP[3]/fitP[1],2));
-      fA_Exnse[m]->SetPointError(fA_Exnse[m]->GetN()-1,0,2*pow(fitP[3]/fitP[1],2)*sqrt(fitE[3]*fitE[3]/fitP[3]/fitP[3] + fitE[1]*fitE[1]/fitP[1]/fitP[1]));
+    m = FindGraph((*fa)[0],(*hr)[0]);
 
-      
+    if(m >= 0){
+
+      if((*hr)[0] == 1){
+	DoFit(hst,fitP,fitE);
+	
+	fA_PEmean[m]->SetPoint(fA_PEmean[m]->GetN(),(*ba)[0],fitP[1]);
+	fA_PEmean[m]->SetPointError(fA_PEmean[m]->GetN()-1,0,fitE[1]);
+	
+	fA_Exnse[m]->SetPoint(fA_Exnse[m]->GetN(),(*ba)[0],pow(fitP[3]/fitP[1],2));
+	fA_Exnse[m]->SetPointError(fA_Exnse[m]->GetN()-1,0,2*pow(fitP[3]/fitP[1],2)*sqrt(fitE[3]*fitE[3]/fitP[3]/fitP[3] + fitE[1]*fitE[1]/fitP[1]/fitP[1]));
+      }
+      else if((*hr)[0] == 2){
+	
+	fA_PEmean_hR2[m]->SetPoint(fA_PEmean_hR2[m]->GetN(),(*ba)[0],hst->GetMean());
+	fA_PEmean_hR2[m]->SetPointError(fA_PEmean_hR2[m]->GetN()-1,0,hst->GetMeanError());
+	
+      }    
+      else if((*hr)[0] == 3){
+	
+	fA_PEmean_hR3[m]->SetPoint(fA_PEmean_hR3[m]->GetN(),(*ba)[0],hst->GetMean());
+	fA_PEmean_hR3[m]->SetPointError(fA_PEmean_hR3[m]->GetN()-1,0,hst->GetMeanError());
+	
+      }
     }
+    
+    
     file->Close("R");    
   }
   rfiles.close();
@@ -103,30 +116,69 @@ void ExtractResults()
 Int_t FindGraph(Int_t fA, Int_t hR)
 {
   TString name;
-  
-  for(int k = 0; k < fA_PEmean.size(); k++){
-    if(fA_PEmean[k]){
-      name = fA_PEmean[k]->GetName();
-      if(name.Contains(Form("fA%d",fA)) && name.Contains(Form("hR%d",hR))){
-	cout << "Returning " << name << endl;
-	return k;
+
+  if(hR == 1){
+    for(int k = 0; k < fA_PEmean.size(); k++){
+      if(fA_PEmean[k]){
+	name = fA_PEmean[k]->GetName();
+	if(name.Contains(Form("fA%d",fA)) && name.Contains(Form("hR%d",hR))){
+	  return k;
+	}
       }
     }
+    TGraphErrors* gr = new TGraphErrors();
+    TGraphErrors* gr2 = new TGraphErrors();
+    gr->SetName(Form("PEMean_fA%d_hR%d",fA,hR));
+    gr2->SetName(Form("Exnse_fA%d_hR%d",fA,hR));
+    //gr->GetYaxis()->SetRangeUser(0,40);
+    gr->SetMarkerStyle(21);
+    gr2->SetMarkerStyle(21);
+    gr->GetXaxis()->SetTitle("Lower Funnel Downstream Angle [Deg]");
+    gr2->GetXaxis()->SetTitle("Lower Funnel Downstream Angle [Deg]");
+    fA_PEmean.push_back(gr);
+    fA_Exnse.push_back(gr2);
+    return fA_PEmean.size()-1;
   }
-  TGraphErrors* gr = new TGraphErrors();
-  TGraphErrors* gr2 = new TGraphErrors();
-  gr->SetName(Form("PEMean_fA%d_hR%d",fA,hR));
-  gr2->SetName(Form("Exnse_fA%d_hR%d",fA,hR));
-  //gr->GetYaxis()->SetRangeUser(0,40);
-  gr->SetMarkerStyle(21);
-  gr2->SetMarkerStyle(21);
-  gr->GetXaxis()->SetTitle("Lower Funnel Downstream Angle [Deg]");
-  gr2->GetXaxis()->SetTitle("Lower Funnel Downstream Angle [Deg]");
-  fA_PEmean.push_back(gr);
-  fA_Exnse.push_back(gr2);
-  return fA_PEmean.size()-1;
-}
+  else if(hR == 2){
 
+    for(int k = 0; k < fA_PEmean_hR2.size(); k++){
+      if(fA_PEmean_hR2[k]){
+	name = fA_PEmean_hR2[k]->GetName();
+	if(name.Contains(Form("fA%d",fA)) && name.Contains(Form("hR%d",hR))){
+	  return k;
+	}
+      }
+    }
+    TGraphErrors* gr = new TGraphErrors();
+    gr->SetName(Form("PEMean_fA%d_hR%d",fA,hR));
+    gr->SetMarkerStyle(21);
+    gr->GetXaxis()->SetTitle("Lower Funnel Downstream Angle [Deg]");
+    fA_PEmean_hR2.push_back(gr);
+    return fA_PEmean_hR2.size()-1;
+
+  }
+  else if(hR == 3){
+
+    for(int k = 0; k < fA_PEmean_hR3.size(); k++){
+      if(fA_PEmean_hR3[k]){
+	name = fA_PEmean_hR3[k]->GetName();
+	if(name.Contains(Form("fA%d",fA)) && name.Contains(Form("hR%d",hR))){
+	  return k;
+	}
+      }
+    }
+    TGraphErrors* gr = new TGraphErrors();
+    gr->SetName(Form("PEMean_fA%d_hR%d",fA,hR));
+    gr->SetMarkerStyle(21);
+    gr->GetXaxis()->SetTitle("Lower Funnel Downstream Angle [Deg]");
+    fA_PEmean_hR3.push_back(gr);
+    return fA_PEmean_hR3.size()-1;
+
+  }
+
+  return -1;
+  
+}
 
 void DoFit(TH1D *hst, Double_t *fitR, Double_t *fitE)
 {

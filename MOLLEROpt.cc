@@ -62,7 +62,7 @@ int main(int argc,char** argv) {
   MOLLEROptMaterial *Materials = new MOLLEROptMaterial(thisMOLLEROptTrackingReadout);
   Materials->DefineMaterials();
   MOLLEROptConstruction*          thisMOLLEROptExperiment       = new MOLLEROptConstruction(thisMOLLEROptTrackingReadout,Materials);
-  MOLLEROptAnalysis*              thisMOLLEROptAnalysis         = new MOLLEROptAnalysis();
+  MOLLEROptAnalysis*              thisMOLLEROptAnalysis         = new MOLLEROptAnalysis(thisMOLLEROptExperiment);
   
   runManager->SetUserInitialization(thisMOLLEROptExperiment);
 
