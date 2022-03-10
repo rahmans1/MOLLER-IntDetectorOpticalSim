@@ -52,7 +52,7 @@ QuartzRotX = str(-3) + " deg"
 PolarRotation = str(3) + " deg"
 LightGuideQuartzToPMTOffset = str(0) + " mm"
 		
-jsubf=open(args.jsub_dir+"/"+args.gen+".sh", "w")
+jsubf=open(args.jsub_dir+"/run.sh", "w")
 jsubf.write("#!/bin/bash\n")
 jsubf.write("#SBATCH --account="+args.account+"\n")
 jsubf.write("#SBATCH --partition=production\n")
