@@ -38,8 +38,8 @@ args.jsub_dir=os.path.realpath(args.jsub_dir)
 out=os.path.realpath(args.out_dir)
 
 EventHitRegion = str(4)
-LightGuideLowerConeBackAngle = str(np.random.uniform(-60,60)) + " deg"
-LightGuideLowerConeFrontAngle = str(np.random.uniform(-60,60)) + " deg"
+LightGuideLowerConeBackAngle = str(np.random.uniform(0,45)) + " deg"
+LightGuideLowerConeFrontAngle = str(np.random.uniform(0,45)) + " deg"
 LightGuideLowerInterface = str(np.random.uniform(2,20)) + " cm"
 LightGuideUpperInterface = str(np.random.uniform(2,650)) + " mm"
 LightGuidePMTInterfaceOpeningX = str(np.random.uniform(2,20)) + " cm"
