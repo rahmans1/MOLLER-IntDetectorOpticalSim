@@ -52,7 +52,7 @@ QuartzRotX = str(-3) + " deg"
 PolarRotation = str(3) + " deg"
 LightGuideQuartzToPMTOffset = str(0) + " mm"
 		
-jsubf=open(args.jsub_dir+"/run.sh", "w")
+jsubf=open(args.jsub_dir+"/run"+args.run_range+".sh", "w")
 jsubf.write("#!/bin/bash\n")
 jsubf.write("#SBATCH --account="+args.account+"\n")
 jsubf.write("#SBATCH --partition=production\n")
@@ -67,7 +67,7 @@ jsubf.write("#SBATCH --chdir="+args.work_dir+"\n")
 jsubf.write("cd ${SLURM_JOB_ID}\n")
 jsubf.write("mkdir ${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}\n")
 jsubf.write("cd ${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}\n")
-macro=args.work_dir+"/${SLURM_JOB_ID}/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}/run"+args.r+".mac"
+macro=args.work_dir+"/${SLURM_JOB_ID}/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}/run"+args.run_range+".mac"
 jsubf.write("touch "+macro+"\n")
 jsubf.write("echo /Det/LightGuideLowerConeBackAngle "+LightGuideLowerConeBackAngle+" >>"+macro+"\n")
 jsubf.write("echo /Det/LightGuideLowerConeFrontAngle "+LightGuideLowerConeFrontAngle+" >>"+macro+"\n")
@@ -86,14 +86,14 @@ jsubf.write("echo /Det/PolarRotation "+PolarRotation+" >>"+macro+"\n")
 jsubf.write("echo /Det/LightGuideQuartzToPMTOffset "+LightGuideQuartzToPMTOffset+" >>"+macro+"\n")
 jsubf.write("echo /Det/UpdateGeometry >>"+macro+"\n")
 jsubf.write("echo /Generator/EventHitRegion "+EventHitRegion+" >>"+macro+"\n")
-jsubf.write("echo /RunAction/SetID "+args.r+" >>"+macro+"\n")
+jsubf.write("echo /RunAction/SetID "+args.run_range+" >>"+macro+"\n")
 jsubf.write("echo /random/setSeeds ${SLURM_ARRAY_JOB_ID}${SLURM_ARRAY_TASK_ID} ${SLURM_ARRAY_TASK_ID}${SLURM_ARRAY_JOB_ID} >>"+macro+"\n")
 jsubf.write("echo /run/beamOn "+str(args.n_events)+" >>"+macro+"\n")  
 jsubf.write("cat "+macro+"\n")
 jsubf.write("cp -r "+args.src+"/"+args.version+" .\n")
 jsubf.write("cd "+args.version+" \n")
 jsubf.write("echo \"Current working directory is `pwd`\"\n")
-jsubf.write("./build/MOLLEROpt ../run"+args.r+".mac\n")
+jsubf.write("./build/MOLLEROpt ../run"+args.run_range+".mac\n")
 jsubf.write("echo \"Program remoll finished with exit code $? at: `date`\"\n")
 jsubf.write("cp "+args.work_dir+"/${SLURM_JOB_ID}/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}/*.root "+out+"\n")
 jsubf.write("rm -rf "+args.work_dir+"/${SLURM_JOB_ID}/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}")
@@ -101,4 +101,4 @@ jsubf.write("rm -rf "+args.work_dir+"/${SLURM_JOB_ID}/${SLURM_ARRAY_JOB_ID}_${SL
 jsubf.close()
 	        
                 
-subprocess.call("sbatch --array="+args.run_range+" "+args.jsub_dir+"/run"+args.r+".sh",shell=True)
+subprocess.call("sbatch --array="+args.run_range+" "+args.jsub_dir+"/run"+args.run_range+".sh",shell=True)
