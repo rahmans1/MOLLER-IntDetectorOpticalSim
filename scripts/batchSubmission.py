@@ -54,7 +54,7 @@ QuartzRotX = str(-3) + " deg"
 PolarRotation = str(3) + " deg"
 LightGuideQuartzToPMTOffset = str(0) + " mm"
 		
-jsubf=open(args.jsub_dir+"/run${SLURM_JOB_ID}.sh", "w")
+jsubf=open(args.jsub_dir+"/run.sh", "w")
 jsubf.write("#!/bin/bash\n")
 jsubf.write("#SBATCH --account="+args.account+"\n")
 jsubf.write("#SBATCH --partition=production\n")
@@ -104,4 +104,4 @@ jsubf.write("rm -rf "+args.work_dir+"/${SLURM_JOB_ID}/${SLURM_ARRAY_JOB_ID}_${SL
 jsubf.close()
 	        
                 
-subprocess.call("sbatch --array="+args.run_range+" "+args.jsub_dir+"/run${SLURM_JOB_ID}.sh",shell=True)
+subprocess.call("sbatch --array="+args.run_range+" "+args.jsub_dir+"/run.sh",shell=True)
