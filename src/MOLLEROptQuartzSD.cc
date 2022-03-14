@@ -40,7 +40,7 @@ G4bool MOLLEROptQuartzSD::ProcessHits(G4Step* aStep, G4TouchableHistory* theTouc
   G4ThreeVector stepPos = preStep->GetPosition();
   Secondaries = aStep->GetSecondaryInCurrentStep();  
 
-  MOLLEROptQuartzHit* aHit = new MOLLEROptQuartzHit();
+  //MOLLEROptQuartzHit* aHit = new MOLLEROptQuartzHit();
 
   if(aStep->GetTrack()->GetDefinition() == G4OpticalPhoton::OpticalPhotonDefinition()){
 
@@ -51,12 +51,12 @@ G4bool MOLLEROptQuartzSD::ProcessHits(G4Step* aStep, G4TouchableHistory* theTouc
       // G4cout << "Quartz step volumes: " << preStep->GetPhysicalVolume()->GetName()<< " " << postStep->GetPhysicalVolume()->GetName() << G4endl;
       G4double incidentAngle = 360;
       
-      if(aHit){
-	aHit->StoreStepLength(aStep->GetStepLength());
-	aHit->StoreTrackID(aStep->GetTrack()->GetTrackID());
-	aHit->SetParticleType(10); //photons
-	aHit->StorePhotonEnergy(aStep->GetTrack()->GetKineticEnergy());
-	aHit->SetPhotonAtExit(0);
+      //if(aHit){
+	// aHit->StoreStepLength(aStep->GetStepLength());
+	// aHit->StoreTrackID(aStep->GetTrack()->GetTrackID());
+	// aHit->SetParticleType(10); //photons
+	// aHit->StorePhotonEnergy(aStep->GetTrack()->GetKineticEnergy());
+	// aHit->SetPhotonAtExit(0);
 
 	// if(postStep && preStep){
 	
@@ -68,7 +68,7 @@ G4bool MOLLEROptQuartzSD::ProcessHits(G4Step* aStep, G4TouchableHistory* theTouc
 
 	    // G4cout << "Exit after step: " << TrackingReadout->GetStepInQuartz(aStep->GetTrack()->GetTrackID()) << G4endl;
 	    
-	    aHit->SetPhotonAtExit(1);
+	    // aHit->SetPhotonAtExit(1);
 	    QEx = 1;
 	    
 	  }
@@ -86,8 +86,8 @@ G4bool MOLLEROptQuartzSD::ProcessHits(G4Step* aStep, G4TouchableHistory* theTouc
 				      incidentAngle);
 	// G4cout << "Quartz Incident Angle: " << incidentAngle << G4endl;	  
 	
-	HitsCollection->insert(aHit); 
-      }
+	// HitsCollection->insert(aHit); 
+	//}
     }
   }
   
