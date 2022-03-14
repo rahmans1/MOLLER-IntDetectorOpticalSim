@@ -8,18 +8,18 @@
 #include "MOLLEROptMaterial.hh"
 #include "MOLLEROptMainEvent.hh"
 #include "MOLLEROptTrackingReadout.hh"
+#include "MOLLEROptConstruction.hh"
 
 class MOLLEROptMainEvent;
 
 class MOLLEROptAnalysis {
 public:
-  MOLLEROptAnalysis();
+  MOLLEROptAnalysis(MOLLEROptConstruction *constr);
   virtual ~MOLLEROptAnalysis();
   
 public:
 
-  // void BeginOfRun(G4int runID, G4double pressure, G4double coll);
-  void BeginOfRun(G4int runID, MOLLEROptTrackingReadout *TrRO);
+  void BeginOfRun(G4int runID, G4String runFileName, G4String runDirName, MOLLEROptTrackingReadout *TrRO);
   void EndOfRun();
   void EndOfEvent(G4int flag);
 
@@ -44,6 +44,7 @@ public:
 private:
 
   MOLLEROptTrackingReadout* TrackingReadout;
+  MOLLEROptConstruction* Construction;
   
   void ConstructRootNtuple(); 
 

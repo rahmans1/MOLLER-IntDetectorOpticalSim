@@ -104,6 +104,7 @@ set(MOLLER_SCRIPTS
   macros/Qt.mac
   macros/myRun.mac
   macros/vis.mac
+  macros/MakeScanMacros3.py
   data/OpticalPropertiesInputData.txt
 )
 

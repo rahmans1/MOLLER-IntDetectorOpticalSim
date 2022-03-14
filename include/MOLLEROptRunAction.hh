@@ -23,10 +23,15 @@ public:
   G4int  getRunID();
   void SetMyRunID(G4int id) {MyRunID = id;};
   void SetROOTFileFlag(G4int flag) {ROOTFileFlag = flag;};
+  void SetMyRunFileName(G4String str){runFileName = str;};
+  void SetMyRunDirName(G4String str){runDirName = str;};
+  G4String GetRunFileName(){return runFileName;};
   
 private:
 
   G4int runID;
+  G4String runFileName;
+  G4String runDirName;
   G4int MyRunID;
   G4int ROOTFileFlag;
   MOLLEROptAnalysis* analysis;
