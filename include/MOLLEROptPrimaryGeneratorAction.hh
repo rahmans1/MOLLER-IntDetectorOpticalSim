@@ -23,7 +23,7 @@ public:
   void GeneratePrimaries(G4Event* anEvent);
   void ResetNtupleEventCounter() {EventCounter = 0;};
   void SetNtupleEventCounter(G4int cnt) {EventCounter = cnt;};
-  void SetEventHitRgion(G4int reg) {EventRegion = reg;};
+  void SetEventHitRegion(G4int reg) {EventRegion = reg; Construction->SetEventHitRegion(reg);};
     
   
 private:

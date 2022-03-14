@@ -14,6 +14,27 @@
 
 #include "G4GDMLParser.hh"
 
+struct DesignParameters{
+
+  G4double QuartzSizeX; 
+  G4double QuartzSizeY; 
+  G4double QuartzSizeZ;
+  
+  G4double LowerInterfacePlane;
+  G4double UpperInterfacePlane;
+  G4double LowerConeFrontFaceAngle;
+  G4double LowerConeBackFaceAngle;
+  G4double LowerConeSideFaceAngle;
+  G4double QuartzInterfaceOpeningZ;
+  G4double QuartzInterfaceOpeningX;
+  G4double PMTInterfaceOpeningZ;
+  G4double PMTInterfaceOpeningX;
+  G4double QuartzToPMTOffsetInZ;
+  G4double QuartzBevel;            
+
+};
+
+
 class MOLLEROptDetectorMessenger;
 
 class MOLLEROptDetector
@@ -58,7 +79,7 @@ public:
   void SetPMTInterfaceOpeningZ(G4double size);
   void SetPMTInterfaceOpeningX(G4double size);
   void SetQuartzToPMTOffsetInZ(G4double val);
-  void SetQuartzBevel(G4double bev) {Quartz->SetBevelSize(bev);};
+  void SetQuartzBevel(G4double bev);
 
   void SetPMTCathodeRadius(G4double size);
   void SetPMTCathodeThickness(G4double size);
@@ -73,9 +94,11 @@ public:
 
   void GetQuartzLimits(G4double *vals);
   void GetLightGuideLimits(G4double *vals);
-
+  DesignParameters* GetDesignParameters();
 
 private:
+
+  DesignParameters *DesignParms;
 
   G4GDMLParser gdmlParser;
 
@@ -125,6 +148,5 @@ private:
   G4GenericTrap* QLGTray_Sld_Left_In; 
   G4SubtractionSolid* QLGTray_Sld_Left;
 
-  
 };
 #endif

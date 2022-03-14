@@ -21,13 +21,14 @@ private:
   Float_t InitialTrackMomDirectionY;
   Float_t InitialTrackMomDirectionZ;
   
-  // vector <Int_t> PMTTrackHit;
-  Int_t PMTTrackHit;
+  vector <Int_t> PMTTrackHit;
+  //Int_t PMTTrackHit;
   
   vector <Float_t> PMTPhotonEnergy;
   vector <Float_t> PMTCathodeHitX;
   vector <Float_t> PMTCathodeHitY;
   vector <Float_t> PMTWindowReflectionAngle;
+  vector <Float_t> PMTAnodePulse;
   
   vector <Int_t> LightGuideTrackHit;
   vector <Float_t> LightGuidePhotonEnergy;
@@ -93,8 +94,8 @@ public:
   // void AddParticleType(Int_t pTyp) {PType.push_back(pTyp);};
 
   void AddPMTPhotonEnergy(Float_t eng) {PMTPhotonEnergy.push_back(eng);};
-  // void AddPMTTrackHit(Int_t tID){PMTTrackHit.push_back(tID);};
-  void AddPMTTrackHit(Int_t tID){PMTTrackHit = tID;};
+  void AddPMTTrackHit(Int_t tID){PMTTrackHit.push_back(tID);};
+  //void AddPMTTrackHit(Int_t tID){PMTTrackHit = tID;};
   void AddPMTHitPositionX(Float_t x) {PMTCathodeHitX.push_back(x);};
   void AddPMTHitPositionY(Float_t y) {PMTCathodeHitY.push_back(y);};
   void AddQuartzHitPositionX(Float_t x) {QuartzHitX.push_back(x);};

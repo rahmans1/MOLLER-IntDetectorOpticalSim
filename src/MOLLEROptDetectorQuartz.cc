@@ -36,14 +36,14 @@ void MOLLEROptDetectorQuartz::Initialize()
 {
   //Quartz backface at +FullLengthZ/2
   Vertices[0]=G4TwoVector(-FullLengthX/2,-FullLengthY/2);
-  Vertices[1]=G4TwoVector(-FullLengthX/2,FullLengthY/2+FullLengthZ);
-  Vertices[2]=G4TwoVector(FullLengthX/2,FullLengthY/2+FullLengthZ);
+  Vertices[1]=G4TwoVector(-FullLengthX/2,FullLengthY/2);
+  Vertices[2]=G4TwoVector(FullLengthX/2,FullLengthY/2);
   Vertices[3]=G4TwoVector(FullLengthX/2,-FullLengthY/2);
   
   //Quartz frontface at -FullLengthZ/2
   Vertices[4]=G4TwoVector(-FullLengthX/2,-FullLengthY/2);
-  Vertices[5]=G4TwoVector(-FullLengthX/2,FullLengthY/2);
-  Vertices[6]=G4TwoVector(FullLengthX/2,FullLengthY/2);
+  Vertices[5]=G4TwoVector(-FullLengthX/2,FullLengthY/2+FullLengthZ);
+  Vertices[6]=G4TwoVector(FullLengthX/2,FullLengthY/2+FullLengthZ);
   Vertices[7]=G4TwoVector(FullLengthX/2,-FullLengthY/2);
 
 
@@ -204,14 +204,14 @@ void MOLLEROptDetectorQuartz::UpdateGeometry()
 
   //Quartz backface at +FullLengthZ/2
   Vertices[0]=G4TwoVector(-FullLengthX/2,-FullLengthY/2);
-  Vertices[1]=G4TwoVector(-FullLengthX/2,FullLengthY/2+FullLengthZ);
-  Vertices[2]=G4TwoVector(FullLengthX/2,FullLengthY/2+FullLengthZ);
+  Vertices[1]=G4TwoVector(-FullLengthX/2,FullLengthY/2);
+  Vertices[2]=G4TwoVector(FullLengthX/2,FullLengthY/2);
   Vertices[3]=G4TwoVector(FullLengthX/2,-FullLengthY/2);
   
   //Quartz frontface at -FullLengthZ/2
   Vertices[4]=G4TwoVector(-FullLengthX/2,-FullLengthY/2);
-  Vertices[5]=G4TwoVector(-FullLengthX/2,FullLengthY/2);
-  Vertices[6]=G4TwoVector(FullLengthX/2,FullLengthY/2);
+  Vertices[5]=G4TwoVector(-FullLengthX/2,FullLengthY/2+FullLengthZ);
+  Vertices[6]=G4TwoVector(FullLengthX/2,FullLengthY/2+FullLengthZ);
   Vertices[7]=G4TwoVector(FullLengthX/2,-FullLengthY/2);
 
   G4GenericTrap *temp1Solid = new G4GenericTrap(Name+"_Solid_tmp1",FullLengthZ/2, Vertices);

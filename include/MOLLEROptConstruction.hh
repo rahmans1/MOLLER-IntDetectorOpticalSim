@@ -31,10 +31,14 @@ public:
   G4double   GetWorldFullLengthInX()    {return fWorldLengthInX;}
   G4double   GetWorldFullLengthInY()    {return fWorldLengthInY;}
   G4double   GetWorldFullLengthInZ()    {return fWorldLengthInZ;}
-  void       SetRadDamageLevel(Int_t dam) {Materials->SetRadDamageLevel(dam);};
+  void       SetRadDamageLevel(G4int dam) {Materials->SetRadDamageLevel(dam);};
+  void       SetEventHitRegion(G4int reg)    {EventHitRegion = reg;}
+  G4int      GetEventHitRegion()    {return EventHitRegion;}
   
   void       GetQuartzLimits(G4double *vals);
   void       GetLightGuideLimits(G4double *vals);
+
+  DesignParameters* GetDetectorDesignParameters() {return Detector->GetDesignParameters();};
 
 private:
   
@@ -57,7 +61,9 @@ private:
   G4double fWorldLength;    
   G4double fWorldLengthInX; 
   G4double fWorldLengthInY; 
-  G4double fWorldLengthInZ; 
+  G4double fWorldLengthInZ;
+
+  G4int EventHitRegion;
 };
 
 #endif
