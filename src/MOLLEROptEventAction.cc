@@ -92,7 +92,7 @@ void MOLLEROptEventAction::EndOfEventAction(const G4Event* evt)
  
   Float_t  optPhEng, wvl, bwdt = QuartzSecOptPhotonCnt->GetBinWidth(2);
 
-  G4HCofThisEvent * HCE = evt->GetHCofThisEvent();
+  // G4HCofThisEvent * HCE = evt->GetHCofThisEvent();
 
   ctrackID = -1;
 
@@ -224,7 +224,7 @@ void MOLLEROptEventAction::EndOfEventAction(const G4Event* evt)
   
   G4int eventNumber = evt->GetEventID();
   
-  if (eventNumber%10000 == 1) analysis->AutoSaveRootNtuple();
+  if (eventNumber%100 == 1) analysis->AutoSaveRootNtuple();
   //=======================================================================
   
   

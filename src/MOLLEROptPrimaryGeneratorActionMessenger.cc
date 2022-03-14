@@ -49,5 +49,5 @@ void MOLLEROptPrimaryGeneratorActionMessenger::SetNewValue(G4UIcommand* command,
     { pPrimaryGeneratorAction->SetNtupleEventCounter(InitEventCounterCmd->GetNewIntValue(newValue)); }
 
   if( command == EventHitRegionCmd )
-    { pPrimaryGeneratorAction->SetEventHitRgion(EventHitRegionCmd->GetNewIntValue(newValue)); }
+    { pPrimaryGeneratorAction->SetEventHitRegion(EventHitRegionCmd->GetNewIntValue(newValue)); }
 }
