@@ -17,17 +17,18 @@ void ExtractResults(TString *dir = 0)
   gSystem->Load("libMOLLEROptDictionaries.so");
 
   TString datadir;
-  if(dir) 
+  if(dir) {
     datadir = dir->Data();
-  else
-    datadir = "./";
-
-  TString rootfiles;
-  rootfiles.Form("ls %s/MOLLEROpt*.root > files.dat",datadir.Data());
-    
-  system(rootfiles.Data());
+    TString rootfiles;
+    rootfiles.Form("ls %s/MOLLEROpt*.root > files.dat",datadir.Data());
+    system(rootfiles.Data());
+  }
+  
 
   std::ifstream rfiles("files.dat");
+
+  if(!rfiles.is_open()) { cout << "Cannot find root file list files.dat. Either specify a directory or the files.dat file." << endl; return;} 
+  
   std::string line;
   TFile *file;
   TVectorD *ba;
@@ -82,7 +83,7 @@ void ExtractResults(TString *dir = 0)
 
   Int_t fAbins = fAmax - fAmin +1;
   Int_t bAbins = bAmax - bAmin +1;
-  Int_t oFbins = oFmax - oFmin +1;
+  Int_t oFbins = (oFmax - oFmin)/2 +1;
 
   cout << "fAmin = " << fAmin  << " fAmax = " << fAmax  << " fAbins = " << fAbins << endl;
   cout << "bAmin = " << bAmin  << " bAmax = " << bAmax  << " bAbins = " << bAbins << endl;
