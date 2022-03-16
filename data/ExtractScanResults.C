@@ -1,5 +1,3 @@
-//#include <fstream>
-
 Double_t langaufun(Double_t *x, Double_t *par);  
 TF1 *langaufit(TH1D *his, Double_t *fitrange, Double_t *startvalues, Double_t *parlimitslo, Double_t *parlimitshi, Double_t *fitparams, Double_t *fiterrors, Double_t *ChiSqr, Int_t *NDF);
 Int_t langaupro(Double_t *params, Double_t &maxx, Double_t &FWHM);
@@ -18,7 +16,8 @@ void ExtractResults()
 {
   gSystem->Load("libMOLLEROptDictionaries.so");
 
-  // FILE *fp = fopen("files.dat");
+  system("ls *.root > files.dat");
+
   std::ifstream rfiles("files.dat");
   std::string line;
   TFile *file;
@@ -81,7 +80,6 @@ void ExtractResults()
   cout << "oFmin = " << oFmin  << " oFmax = " << oFmax  << " oFbins = " << oFbins << endl << endl;
 
   for(int r = 0; r < 3; r++){
-    // fAbA_PEmean.push_back(new TH2D(Form("PEMean_hR%d",r+1),"",6,16.5,22.5,5,19.5,24.5));
     fAbA_PEmean.push_back(new TH2D(Form("PEMean_hR%d",r+1),"",fAbins,fAmin-0.5,fAmax+0.5,bAbins,bAmin-0.5,bAmax+0.5));
   }
 
