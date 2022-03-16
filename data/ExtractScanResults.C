@@ -12,11 +12,20 @@ std::vector <TH2D*> fAbA_PEmean;
 std::vector <TCanvas*> FitHist;
 
 
-void ExtractResults()
+void ExtractResults(TString *dir = 0)
 {
   gSystem->Load("libMOLLEROptDictionaries.so");
 
-  system("ls *.root > files.dat");
+  TString datadir;
+  if(dir) 
+    datadir = dir->Data();
+  else
+    datadir = "./";
+
+  TString rootfiles;
+  rootfiles.Form("ls %s/MOLLEROpt*.root > files.dat",datadir.Data());
+    
+  system(rootfiles.Data());
 
   std::ifstream rfiles("files.dat");
   std::string line;
