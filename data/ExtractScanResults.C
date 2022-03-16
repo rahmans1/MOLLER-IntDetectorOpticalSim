@@ -1,5 +1,3 @@
-//#include <fstream>
-
 Double_t langaufun(Double_t *x, Double_t *par);  
 TF1 *langaufit(TH1D *his, Double_t *fitrange, Double_t *startvalues, Double_t *parlimitslo, Double_t *parlimitshi, Double_t *fitparams, Double_t *fiterrors, Double_t *ChiSqr, Int_t *NDF);
 Int_t langaupro(Double_t *params, Double_t &maxx, Double_t &FWHM);
@@ -9,15 +7,28 @@ Int_t FindGraph(Int_t fA, Int_t hR);
 std::vector <TGraphErrors*> fA_PEmean;
 std::vector <TGraphErrors*> fA_PEmean_hR2;
 std::vector <TGraphErrors*> fA_PEmean_hR3;
-
 std::vector <TGraphErrors*> fA_Exnse;
+std::vector <TH2D*> fAbA_PEmean;
+std::vector <TCanvas*> FitHist;
 
-void ExtractResults()
+
+void ExtractResults(TString *dir = 0)
 {
   gSystem->Load("libMOLLEROptDictionaries.so");
 
-  // FILE *fp = fopen("files.dat");
+  TString datadir;
+  if(dir) {
+    datadir = dir->Data();
+    TString rootfiles;
+    rootfiles.Form("ls %s/MOLLEROpt*.root > files.dat",datadir.Data());
+    system(rootfiles.Data());
+  }
+  
+
   std::ifstream rfiles("files.dat");
+
+  if(!rfiles.is_open()) { cout << "Cannot find root file list files.dat. Either specify a directory or the files.dat file." << endl; return;} 
+  
   std::string line;
   TFile *file;
   TVectorD *ba;
@@ -30,31 +41,58 @@ void ExtractResults()
   TString runID, tmpStr, tok;
   Ssiz_t from = 0;
   Double_t fitP[4], fitE[4];
-  TGraphErrors *gr, *gr2;
-  // Int_t maxfA, minfA = 40;
+  Int_t fAmin = 90;
+  Int_t fAmax = 0;
+  Int_t bAmin = 90;
+  Int_t bAmax = 0;
+  Int_t oFmin = 10;
+  Int_t oFmax = 0;
+  Int_t fA, bA, oF;
   
-  //PEMean->SetName("PEMean");
-  //PEMean->GeXaxis()->SetTitle("");
-
-  //Parse the run file names to establish the variations count 
-  // while(std::getline(rfiles, line)){
-  //   from = 0;
-  //   runID = line.data();
+  while(std::getline(rfiles, line)){
+    from = 0;
+    runID = line.data();
     
-  //   while(runID.Tokenize(tok,from,"_")){
+    while(runID.Tokenize(tok,from,"_")){
+      
+      if(tok.Contains("fA")){
+    	tok.Remove(0,2);
+    	fA = tok.Atoi();	
+	// cout << "fA = " << fA << endl;
+	if(fA < fAmin) fAmin = fA;
+	if(fA > fAmax) fAmax = fA;
+      }
+      if(tok.Contains("bA")){
+    	tok.Remove(0,2);
+    	bA = tok.Atoi();	
+	// cout << "bA = " << bA << endl;
+	if(bA < bAmin) bAmin = bA;
+	if(bA > bAmax) bAmax = bA;
+      }
+      if(tok.Contains("oF")){
+    	tok.Remove(0,2);
+    	oF = tok.Atoi();	
+	// cout << "oF = " << oF << endl;
+	if(oF < oFmin) oFmin = oF;
+	if(oF > oFmax) oFmax = oF;
+      }
+    }
+  }
+  rfiles.clear();
+  rfiles.seekg(0,ios::beg);
 
-  //     if(tok.Contains("fA")){
-  // 	tok.Remove(0,2);
-	
-  // 	cout << tok.Atoi() << endl;
+  Int_t fAbins = fAmax - fAmin +1;
+  Int_t bAbins = bAmax - bAmin +1;
+  Int_t oFbins = (oFmax - oFmin)/2 +1;
 
-  // 	if(minfA > )
-  //     }
-  //   }
- 
-  // }
-  // rfiles.clear();
-  // rfiles.seekg(0);
+  cout << "fAmin = " << fAmin  << " fAmax = " << fAmax  << " fAbins = " << fAbins << endl;
+  cout << "bAmin = " << bAmin  << " bAmax = " << bAmax  << " bAbins = " << bAbins << endl;
+  cout << "oFmin = " << oFmin  << " oFmax = " << oFmax  << " oFbins = " << oFbins << endl << endl;
+
+  for(int r = 0; r < 3; r++){
+    fAbA_PEmean.push_back(new TH2D(Form("PEMean_hR%d",r+1),"",fAbins,fAmin-0.5,fAmax+0.5,bAbins,bAmin-0.5,bAmax+0.5));
+  }
+
  
   
   while(std::getline(rfiles, line)){
@@ -64,7 +102,7 @@ void ExtractResults()
 
     hr = (TVectorD*)file->Get("HitRegion");
       
-    cout << line.data() << endl;
+    // cout << line.data() << endl;
     tmpStr = line.data();
     tmpStr = tmpStr.ReplaceAll("MOLLEROpt_","");
     runID = tmpStr.ReplaceAll(".root","");      
@@ -80,6 +118,7 @@ void ExtractResults()
 
     m = FindGraph((*fa)[0],(*hr)[0]);
 
+
     if(m >= 0){
 
       if((*hr)[0] == 1){
@@ -90,18 +129,22 @@ void ExtractResults()
 	
 	fA_Exnse[m]->SetPoint(fA_Exnse[m]->GetN(),(*ba)[0],pow(fitP[3]/fitP[1],2));
 	fA_Exnse[m]->SetPointError(fA_Exnse[m]->GetN()-1,0,2*pow(fitP[3]/fitP[1],2)*sqrt(fitE[3]*fitE[3]/fitP[3]/fitP[3] + fitE[1]*fitE[1]/fitP[1]/fitP[1]));
+	fAbA_PEmean[(*hr)[0]-1]->SetBinContent(fAbA_PEmean[(*hr)[0]-1]->FindBin((*fa)[0],(*ba)[0]),fitP[1]);
+	// cout << "binx = " << (*fa)[0]  << "biny = " << (*ba)[0]  << "pe = " << fitP[1] << endl;
       }
       else if((*hr)[0] == 2){
 	
 	fA_PEmean_hR2[m]->SetPoint(fA_PEmean_hR2[m]->GetN(),(*ba)[0],hst->GetMean());
 	fA_PEmean_hR2[m]->SetPointError(fA_PEmean_hR2[m]->GetN()-1,0,hst->GetMeanError());
 	
+	fAbA_PEmean[(*hr)[0]-1]->SetBinContent(fAbA_PEmean[(*hr)[0]-1]->FindBin((*fa)[0],(*ba)[0]),hst->GetMean());
       }    
       else if((*hr)[0] == 3){
 	
 	fA_PEmean_hR3[m]->SetPoint(fA_PEmean_hR3[m]->GetN(),(*ba)[0],hst->GetMean());
 	fA_PEmean_hR3[m]->SetPointError(fA_PEmean_hR3[m]->GetN()-1,0,hst->GetMeanError());
 	
+	fAbA_PEmean[(*hr)[0]-1]->SetBinContent(fAbA_PEmean[(*hr)[0]-1]->FindBin((*fa)[0],(*ba)[0]),hst->GetMean());	
       }
     }
     
@@ -109,8 +152,34 @@ void ExtractResults()
     file->Close("R");    
   }
   rfiles.close();
-}
 
+  TFile* oFile = new TFile("Results.root","RECREATE");
+  oFile->cd();
+  for(int f = 0; f < FitHist.size(); f++){
+    FitHist[f]->Write();
+  }
+
+  for(int f = 0; f < fA_PEmean.size(); f++){
+    fA_PEmean[f]->Write();
+  }
+  for(int f = 0; f < fA_PEmean_hR2.size(); f++){
+    fA_PEmean_hR2[f]->Write();
+  }
+  for(int f = 0; f < fA_PEmean_hR3.size(); f++){
+    fA_PEmean_hR3[f]->Write();
+  }
+  for(int f = 0; f < fA_Exnse.size(); f++){
+    fA_Exnse[f]->Write();
+  }
+  for(int f = 0; f < fAbA_PEmean.size(); f++){
+    fAbA_PEmean[f]->Write();
+  }
+  
+  oFile->Close();
+  for(int f = 0; f < FitHist.size(); f++){
+    delete FitHist[f];
+  }
+}
 
 
 Int_t FindGraph(Int_t fA, Int_t hR)
@@ -176,6 +245,8 @@ Int_t FindGraph(Int_t fA, Int_t hR)
 
   }
 
+  
+
   return -1;
   
 }
@@ -196,7 +267,7 @@ void DoFit(TH1D *hst, Double_t *fitR, Double_t *fitE)
   Int_t nfound2 = s->Search(hst,5,"",0.01);
   peaks_m[0] =  s->GetPositionX()[0];
   peaks_h[0] =  s->GetPositionY()[0];
-  cout << "Event peak located at " << peaks_m[0] << " height = " << peaks_h[0] << endl;    
+  //cout << "Event peak located at " << peaks_m[0] << " height = " << peaks_h[0] << endl;    
   cnv->Update();
 
   printf("Fitting...\n");
@@ -250,7 +321,7 @@ void DoFit(TH1D *hst, Double_t *fitR, Double_t *fitE)
   hst->GetXaxis()->SetRange(0,100);
   hst->Draw();
   fitsnr->Draw("lsame");
-  
+  FitHist.push_back(cnv);
   
 }
 
