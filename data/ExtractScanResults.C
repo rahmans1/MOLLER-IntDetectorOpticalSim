@@ -48,21 +48,21 @@ void ExtractResults()
       if(tok.Contains("fA")){
     	tok.Remove(0,2);
     	fA = tok.Atoi();	
-	cout << "fA = " << fA << endl;
+	// cout << "fA = " << fA << endl;
 	if(fA < fAmin) fAmin = fA;
 	if(fA > fAmax) fAmax = fA;
       }
       if(tok.Contains("bA")){
     	tok.Remove(0,2);
     	bA = tok.Atoi();	
-	cout << "bA = " << bA << endl;
+	// cout << "bA = " << bA << endl;
 	if(bA < bAmin) bAmin = bA;
 	if(bA > bAmax) bAmax = bA;
       }
       if(tok.Contains("oF")){
     	tok.Remove(0,2);
     	oF = tok.Atoi();	
-	cout << "oF = " << oF << endl;
+	// cout << "oF = " << oF << endl;
 	if(oF < oFmin) oFmin = oF;
 	if(oF > oFmax) oFmax = oF;
       }
@@ -92,7 +92,7 @@ void ExtractResults()
 
     hr = (TVectorD*)file->Get("HitRegion");
       
-    cout << line.data() << endl;
+    // cout << line.data() << endl;
     tmpStr = line.data();
     tmpStr = tmpStr.ReplaceAll("MOLLEROpt_","");
     runID = tmpStr.ReplaceAll(".root","");      
@@ -120,7 +120,7 @@ void ExtractResults()
 	fA_Exnse[m]->SetPoint(fA_Exnse[m]->GetN(),(*ba)[0],pow(fitP[3]/fitP[1],2));
 	fA_Exnse[m]->SetPointError(fA_Exnse[m]->GetN()-1,0,2*pow(fitP[3]/fitP[1],2)*sqrt(fitE[3]*fitE[3]/fitP[3]/fitP[3] + fitE[1]*fitE[1]/fitP[1]/fitP[1]));
 	fAbA_PEmean[(*hr)[0]-1]->SetBinContent(fAbA_PEmean[(*hr)[0]-1]->FindBin((*fa)[0],(*ba)[0]),fitP[1]);
-	cout << "binx = " << (*fa)[0]  << "biny = " << (*ba)[0]  << "pe = " << fitP[1] << endl;
+	// cout << "binx = " << (*fa)[0]  << "biny = " << (*ba)[0]  << "pe = " << fitP[1] << endl;
       }
       else if((*hr)[0] == 2){
 	
@@ -257,7 +257,7 @@ void DoFit(TH1D *hst, Double_t *fitR, Double_t *fitE)
   Int_t nfound2 = s->Search(hst,5,"",0.01);
   peaks_m[0] =  s->GetPositionX()[0];
   peaks_h[0] =  s->GetPositionY()[0];
-  cout << "Event peak located at " << peaks_m[0] << " height = " << peaks_h[0] << endl;    
+  //cout << "Event peak located at " << peaks_m[0] << " height = " << peaks_h[0] << endl;    
   cnv->Update();
 
   printf("Fitting...\n");
