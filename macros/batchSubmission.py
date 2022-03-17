@@ -111,7 +111,7 @@ jsubf.write("echo /random/setSeeds ${SLURM_ARRAY_JOB_ID}${SLURM_ARRAY_TASK_ID} $
 jsubf.write("echo /run/beamOn "+str(args.n_events)+" >>"+macro+"\n")
 jsubf.write("cat "+macro+"\n")
 jsubf.write("cp -r "+args.src+"/"+args.version+" .\n")
-jsubf.write("cd "+args.version+" \n")
+jsubf.write("cd "+args.version+"/build \n")
 jsubf.write("echo \"Current working directory is `pwd`\"\n")
 jsubf.write("cat << EOF | "+args.eic_shell+"\n")
 jsubf.write(args.src+"/"+args.version+"/build/MOLLEROpt /scratch/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}/run.mac\n")
