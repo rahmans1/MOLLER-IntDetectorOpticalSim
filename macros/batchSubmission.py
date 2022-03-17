@@ -18,7 +18,6 @@ parser.add_argument("-o", dest="out_dir", action="store", required=True, help="c
 parser.add_argument("-r", dest="run_range", action = "store", required=False, default="1", help="provide run range. Example: \"2-5\"")
 parser.add_argument("-n", dest="n_events", action= "store", required=False, default=1000, help= "provide number of events per job in the array")
 parser.add_argument("--time", dest="time", action= "store", required= False, default= "00:25:00", help= "provide the estimated run time. Ex: \"00:25:00\". Usually it is 10 minutes for 1000 moller events.")
-parser.add_argument("-w", dest="work_dir", action="store", required=False, default="/scratch/slurm", help="Enter location where analysis takes place. Choose: /scratch/slurm.")
 
 args=parser.parse_args()
 
@@ -82,11 +81,11 @@ for i in range(int(x[:index-1]),1+int(x[index:])):
   jsubf.write("PolarRotation["+str(i)+"]="+PolarRotation[i-(1+int(x[index:])-int(x[:index-1]))]+"\n")
   jsubf.write("LightGuideQuartzToPMTOffset["+str(i)+"]="+LightGuideQuartzToPMTOffset[i-(1+int(x[index:])-int(x[:index-1]))]+"\n")
 
-jsubf.write("/w/halla-scshelf2102/moller12gev/rahmans/mollerOpticalSim/eic-shell \n") 
+jsubf.write("cd /scratch/slurm\n")
 jsubf.write("cd ${SLURM_JOB_ID}\n")
 jsubf.write("mkdir ${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}\n")
 jsubf.write("cd ${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}\n")
-macro=args.work_dir+"/${SLURM_JOB_ID}/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}/run${SLURM_JOB_ID}.mac"
+macro="run.mac"
 jsubf.write("touch "+macro+"\n")
 jsubf.write("echo /Det/LightGuideLowerConeBackAngle "+LightGuideLowerConeBackAngle+" >>"+macro+"\n")
 jsubf.write("echo /Det/LightGuideLowerConeFrontAngle "+LightGuideLowerConeFrontAngle+" >>"+macro+"\n")
@@ -111,11 +110,14 @@ jsubf.write("echo /run/beamOn "+str(args.n_events)+" >>"+macro+"\n")
 jsubf.write("cat "+macro+"\n")
 jsubf.write("cp -r "+args.src+"/"+args.version+" .\n")
 jsubf.write("cd "+args.version+" \n")
+
 jsubf.write("echo \"Current working directory is `pwd`\"\n")
-jsubf.write("./build/MOLLEROpt ../run${SLURM_JOB_ID}.mac\n")
+jsubf.write("cat << EOF | "+args.eic_shell+"\n")
+jsubf.write(args.src+"/"+args.version+"/build/MOLLEROpt /scratch/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}/run.mac\n")
+jsubf.write("EOF\n")
 jsubf.write("echo \"Program remoll finished with exit code $? at: `date`\"\n")
-jsubf.write("cp "+args.work_dir+"/${SLURM_JOB_ID}/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}/*.root "+out+"\n")
-jsubf.write("rm -rf "+args.work_dir+"/${SLURM_JOB_ID}/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}")
+jsubf.write("cp *.root "+out+"\n")
+jsubf.write("rm -rf /scratch/slurm/${SLURM_JOB_ID}/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}")
 
 jsubf.close()
 	        
