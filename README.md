@@ -13,7 +13,7 @@
 ## Can also be compiled under eic-shell container
 
 * install singularity on your system if not already available (https://sylabs.io/guides/3.9/user-guide/quick_start.html#quick-installation-steps)
-* curl -L get.athena-eic.org | bash
+* curl https://eicweb.phy.anl.gov/containers/eic_container/-/raw/master/install.sh | bash
 * ./eic-shell
 
 ## Project Layout
