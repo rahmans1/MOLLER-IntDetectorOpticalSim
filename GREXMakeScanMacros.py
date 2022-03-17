@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 
 #This script produces a series of G4 macros that vary a specified set of simulation parameters that are of relevance to the MOLLER detector design.
-#This script will also produce a bash script at the end, called "StartRuns" that can be used to run all of the generated macros at the same time.
+#This script will also produce a bash script for the GREX slurm batch process. The latter can be used to start separate simulations for all of the macros generated with this script.
 #Care should be taken with respect to the number of variations. Each simulation run takes about 1GB of memory. On my own machine with 20 cores and 15 GB Memory + 15 GB Swap
 #I can comfortably run about 20 such processes at a time.
 
@@ -11,12 +11,12 @@ runscript = "#!/bin/bash\n"
 runscript += "#SBATCH --cpus-per-task=1\n"
 runscript += "#SBATCH --mem-per-cpu=600MB\n"
 runscript += "#SBATCH --job-name=\"MOLLER-Optical\"\n"
-#runscript += "#SBATCH --partition=skylake\n"
+runscript += "#SBATCH --partition=skylake,largemem,compute\n"
 #runscript += "#SBATCH --account=rrg-jmammei\n"
 
 #print(Path.home()) 
 #datadir =  "/home/mgericke/MOLLER/Simulations/MOLLER-IntDetectorOpticalSim/data/March2022/Ring5LGAngleParamScan/New/" # with respect to the sim executable directory - change this to preferred dir
-datadir =  "/global/scratch/mgericke/MOLLER/Simulations/MOLLER-IntDetectorOpticalSim/data/March2022/Ring5/Thickness15mm/" # with respect to the sim executable directory - change this to preferred dir
+datadir =  "/global/scratch/mgericke/MOLLER/Simulations/MOLLER-IntDetectorOpticalSim/data/March2022/Ring5/Thickness18mm/" # with respect to the sim executable directory - change this to preferred dir
 OutputFilePrefix = "MOLLEROpt"                      # String that starts all the output files from this script (all macro files and root output files)
 RunID = 1  #Set this to distinguish scans - the same ID is assigned to each run in this scan - see below for additional run identifiers within the scan
 
@@ -69,8 +69,8 @@ li_start = 75 #mm
 li_stop = 75  #mm
 li_step = 2
 
-qt_start = 15 #mm
-qt_stop = 15 #mm
+qt_start = 18 #mm
+qt_stop = 18 #mm
 qt_step = 1
 
 of_start = -6 #mm   start = -6
