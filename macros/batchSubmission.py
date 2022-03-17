@@ -78,6 +78,7 @@ for i in range(int(x[:index-1]),1+int(x[index:])):
   jsubf.write("LightGuideQuartzInterfaceOpeningZ["+str(i)+"]="+LightGuideQuartzInterfaceOpeningZ[i-(1+int(x[index:])-int(x[:index-1]))]+"\n")
   jsubf.write("QuartzSizeZ["+str(i)+"]="+QuartzSizeZ[i-(1+int(x[index:])-int(x[:index-1]))]+"\n")
   jsubf.write("QuartzSizeX["+str(i)+"]="+QuartzSizeX[i-(1+int(x[index:])-int(x[:index-1]))]+"\n")
+  jsubf.write("QuartzSizeY["+str(i)+"]="+QuartzSizeY[i-(1+int(x[index:])-int(x[:index-1]))]+"\n")
   jsubf.write("QuartzBevelSize["+str(i)+"]="+QuartzBevelSize[i-(1+int(x[index:])-int(x[:index-1]))]+"\n")
   jsubf.write("QuartzRotX["+str(i)+"]="+QuartzRotX[i-(1+int(x[index:])-int(x[:index-1]))]+"\n")
   jsubf.write("PolarRotation["+str(i)+"]="+PolarRotation[i-(1+int(x[index:])-int(x[:index-1]))]+"\n")
