@@ -10,8 +10,9 @@ import numpy as np
 
 parser = argparse.ArgumentParser(description="Submit array jobs to ifarm.")
 parser.add_argument("-a", dest="account", action="store", required=True, help="Enter the Jefferson Lab account. Example: halla")  
-parser.add_argument("-s", dest="src", action="store", required=False, default="~/projects/rrg-jmammei/REMOLL/remoll_version", help="source folder where simulation directory exists")
-parser.add_argument("-v", dest="version", action="store", required=False, default="real_shield", help= "choose the version of simulation to use.")
+parser.add_argument("-s", dest="src", action="store", required=False, default="/w/halla-scshelf2102/moller12gev/rahmans/mollerOpticalSim", help="source folder where simulation directory exists")
+parser.add_argument("-v", dest="version", action="store", required=False, default="MOLLER-IntDetectorOpticalSim", help= "choose the version of simulation to use. Should just be the name of the repository unless you rename local folder")
+parser.add_argument("-e", dest="eic_shell", action="store", required=False, default="/w/halla-scshelf2102/moller12gev/rahmans/mollerOpticalSim/eic-shell", help= "provide the location of eic-shell")
 parser.add_argument("-j", dest="jsub_dir", action="store", required=True, help="choose directory to write the slurm submission scripts")
 parser.add_argument("-t", dest="tmp_dir", action="store", required=True, help="choose directory to write the slurm output logs")
 parser.add_argument("-o", dest="out_dir", action="store", required=True, help="choose where to write the output root files")
@@ -21,7 +22,7 @@ parser.add_argument("--time", dest="time", action= "store", required= False, def
 
 args=parser.parse_args()
 
-args.work_dir=os.path.realpath(args.work_dir)
+args.eic_shell=os.path.realpath(args.eic_shell)
 args.src=os.path.realpath(args.src)
 
 if not os.path.exists(args.jsub_dir):
@@ -30,8 +31,7 @@ if not os.path.exists(args.tmp_dir):
         os.system("mkdir -p "+args.tmp_dir)
 if not os.path.exists(args.out_dir):
         os.system("mkdir -p "+args.out_dir)
-if not os.path.exists(args.work_dir):
-        os.system("mkdir -p "+args.work_dir)
+
 args.tmp_dir=os.path.realpath(args.tmp_dir)
 args.jsub_dir=os.path.realpath(args.jsub_dir)
 out=os.path.realpath(args.out_dir)
