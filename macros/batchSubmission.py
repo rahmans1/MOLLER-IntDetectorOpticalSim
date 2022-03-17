@@ -38,21 +38,21 @@ args.jsub_dir=os.path.realpath(args.jsub_dir)
 out=os.path.realpath(args.out_dir)
 
 EventHitRegion = str(4)
-LightGuideLowerConeBackAngle = str(np.random.uniform(0,45)) + " deg"
-LightGuideLowerConeFrontAngle = str(np.random.uniform(0,45)) + " deg"
-LightGuideLowerInterface = str(np.random.uniform(2,20)) + " cm"
-LightGuideUpperInterface = str(np.random.uniform(2,650)) + " mm"
-LightGuidePMTInterfaceOpeningX = str(np.random.uniform(2,20)) + " cm"
-LightGuidePMTInterfaceOpeningZ = str(np.random.uniform(2,20)) + " cm"
-LightGuideQuartzInterfaceOpeningX = str(np.random.uniform(2,20)) + " cm"
-LightGuideQuartzInterfaceOpeningZ = str(np.random.uniform(2,20)) + " cm"
-QuartzSizeZ = str(np.random.uniform(5,30)) + " mm"
-QuartzSizeX = str(np.random.uniform(30,120)) + " mm"
-QuartzSizeY = str(np.random.uniform(30,200)) + " mm"
-QuartzBevelSize = str(0.1) + " mm"
-QuartzRotX = str(-3) + " deg"
-PolarRotation = str(3) + " deg"
-LightGuideQuartzToPMTOffset = str(0) + " mm"
+LightGuideLowerConeBackAngle = list(map(str, np.random.uniform(0,45,size=1+int(x[index:])-int(x[:index-1]))))
+LightGuideLowerConeFrontAngle = list(map(str, np.random.uniform(0,45,size=1+int(x[index:])-int(x[:index-1]))))
+LightGuideLowerInterface = list(map(str, np.random.uniform(2,20,size=1+int(x[index:])-int(x[:index-1]))))
+LightGuideUpperInterface = list(map(str, np.random.uniform(2,650,size=1+int(x[index:])-int(x[:index-1]))))
+LightGuidePMTInterfaceOpeningX = list(map(str, np.random.uniform(2,20, size=1+int(x[index:])-int(x[:index-1]))))
+LightGuidePMTInterfaceOpeningZ = list(map(str, np.random.uniform(2,20, size=1+int(x[index:])-int(x[:index-1]))))
+LightGuideQuartzInterfaceOpeningX = list(map(str, np.random.uniform(2,20, size=1+int(x[index:])-int(x[:index-1]))))
+LightGuideQuartzInterfaceOpeningZ = list(map(str, np.random.uniform(2,20, size=1+int(x[index:])-int(x[:index-1]))))
+QuartzSizeZ = list(map(str, np.random.uniform(5,30,size=1+int(x[index:])-int(x[:index-1]))))
+QuartzSizeX = list(map(str, np.random.uniform(30,120,size=1+int(x[index:])-int(x[:index-1]))))
+QuartzSizeY = list(map(str, np.random.uniform(30,200,size=1+int(x[index:])-int(x[:index-1]))))
+QuartzBevelSize = list(map(str, np.random.uniform(0.09,0.11,size=(1+int(x[index:])-int(x[:index-1])))))
+QuartzRotX = list(map(str, np.random.uniform(-3.1,-2.9,size=(1+int(x[index:])-int(x[:index-1])))))
+PolarRotation = list(map(str, np.random.uniform(2.9,3.1,size=(1+int(x[index:])-int(x[:index-1])))))
+LightGuideQuartzToPMTOffset = list(map(str, np.random.uniform(-0.001,0.001,size=(1+int(x[index:])-int(x[:index-1])))))
 		
 jsubf=open(args.jsub_dir+"/run.sh", "w")
 jsubf.write("#!/bin/bash\n")
@@ -65,7 +65,23 @@ jsubf.write("#SBATCH --ntasks=1\n")
 jsubf.write("#SBATCH --cpus-per-task=1\n")
 jsubf.write("#SBATCH --mem=4G\n")
 jsubf.write("#SBATCH --output="+args.tmp_dir+"/run_%A_%a.out\n")
-jsubf.write("#SBATCH --chdir="+args.work_dir+"\n")
+
+for i in range(int(x[:index-1]),1+int(x[index:])):
+  jsubf.write("LightGuideLowerConeBackAngle["+str(i)+"]="+LightGuideLowerConeBackAngle[i-(1+int(x[index:])-int(x[:index-1]))]+"\n")
+  jsubf.write("LightGuideLowerConeFrontAngle["+str(i)+"]="+LightGuideLowerConeFrontAngle[i-(1+int(x[index:])-int(x[:index-1]))]+"\n")
+  jsubf.write("LightGuideLowerInterface["+str(i)+"]="+LightGuideLowerInterface[i-(1+int(x[index:])-int(x[:index-1]))]+"\n")
+  jsubf.write("LightGuideUpperInterface["+str(i)+"]="+LightGuideUpperInterface[i-(1+int(x[index:])-int(x[:index-1]))]+"\n")
+  jsubf.write("LightGuidePMTInterfaceOpeningX["+str(i)+"]="+LightGuidePMTInterfaceOpeningX[i-(1+int(x[index:])-int(x[:index-1]))]+"\n")
+  jsubf.write("LightGuidePMTInterfaceOpeningZ["+str(i)+"]="+LightGuidePMTInterfaceOpeningZ[i-(1+int(x[index:])-int(x[:index-1]))]+"\n")
+  jsubf.write("LightGuideQuartzInterfaceOpeningX["+str(i)+"]="+LightGuideQuartzInterfaceOpeningX[i-(1+int(x[index:])-int(x[:index-1]))]+"\n")
+  jsubf.write("LightGuideQuartzInterfaceOpeningZ["+str(i)+"]="+LightGuideQuartzInterfaceOpeningZ[i-(1+int(x[index:])-int(x[:index-1]))]+"\n")
+  jsubf.write("QuartzSizeZ["+str(i)+"]="+QuartzSizeZ[i-(1+int(x[index:])-int(x[:index-1]))]+"\n")
+  jsubf.write("QuartzSizeX["+str(i)+"]="+QuartzSizeX[i-(1+int(x[index:])-int(x[:index-1]))]+"\n")
+  jsubf.write("QuartzBevelSize["+str(i)+"]="+QuartzBevelSize[i-(1+int(x[index:])-int(x[:index-1]))]+"\n")
+  jsubf.write("QuartzRotX["+str(i)+"]="+QuartzRotX[i-(1+int(x[index:])-int(x[:index-1]))]+"\n")
+  jsubf.write("PolarRotation["+str(i)+"]="+PolarRotation[i-(1+int(x[index:])-int(x[:index-1]))]+"\n")
+  jsubf.write("LightGuideQuartzToPMTOffset["+str(i)+"]="+LightGuideQuartzToPMTOffset[i-(1+int(x[index:])-int(x[:index-1]))]+"\n")
+
 jsubf.write("/w/halla-scshelf2102/moller12gev/rahmans/mollerOpticalSim/eic-shell \n") 
 jsubf.write("cd ${SLURM_JOB_ID}\n")
 jsubf.write("mkdir ${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}\n")
