@@ -35,6 +35,8 @@ if not os.path.exists(args.out_dir):
 args.tmp_dir=os.path.realpath(args.tmp_dir)
 args.jsub_dir=os.path.realpath(args.jsub_dir)
 out=os.path.realpath(args.out_dir)
+x=args.run_range
+index=x.rfind("-")+1
 
 EventHitRegion = str(4)
 LightGuideLowerConeBackAngle = list(map(str, np.random.uniform(0,45,size=1+int(x[index:])-int(x[:index-1]))))
