@@ -1,7 +1,9 @@
 #include "MOLLEROptDetector.hh"
 
 MOLLEROptDetector::MOLLEROptDetector(MOLLEROptTrackingReadout *TrRO, G4String type, MOLLEROptMaterial* mat)
-{	    	    
+{
+  DesignParms = new DesignParameters;
+
   TrackingReadout = TrRO;
   DetType = type;
   Materials = mat;
@@ -40,18 +42,26 @@ void MOLLEROptDetector::SetQuartzSizeX(G4double x)
 {
   if(Quartz)
     Quartz->SetQuartzSizeX(x);
+
+  DesignParms->QuartzSizeX = x;
 }
 
 void MOLLEROptDetector::SetQuartzSizeY(G4double y)
 {
   if(Quartz)
     Quartz->SetQuartzSizeY(y);
+
+  DesignParms->QuartzSizeY = y;
+    
 }
 				       
 void MOLLEROptDetector::SetQuartzSizeZ(G4double z)
 {
   if(Quartz)
     Quartz->SetQuartzSizeZ(z);
+
+  DesignParms->QuartzSizeZ = z;
+    
 }
 
 				       
@@ -64,12 +74,24 @@ void MOLLEROptDetector::SetQuartzRotX(G4double rX)
   //still hit the detector at normal incidence.
 
   //RotationDet->rotateX(-rX);
+  DesignParms->QuartzRotation = rX/degree;
 }
+
+void MOLLEROptDetector::SetQuartzBevel(G4double bev)
+{
+  if(Quartz)
+    Quartz->SetBevelSize(bev);
+  
+  DesignParms->QuartzBevel = bev;
+}
+
 
 void MOLLEROptDetector::SetLowerInterfacePlane(G4double LowerPlane)
 {
   if(LightGuide)
     LightGuide->SetLowerInterfacePlane(LowerPlane);
+
+  DesignParms->LowerInterfacePlane = LowerPlane;
 }
 
 void MOLLEROptDetector::SetUpperInterfacePlane(G4double UpperPlane)
@@ -77,19 +99,23 @@ void MOLLEROptDetector::SetUpperInterfacePlane(G4double UpperPlane)
   if(LightGuide)
     LightGuide->SetUpperInterfacePlane(UpperPlane);
 
-  
+  DesignParms->UpperInterfacePlane = UpperPlane;
 }
 
 void MOLLEROptDetector::SetLowerConeFrontFaceAngle(G4double angle)
 {
   if(LightGuide)
     LightGuide->SetLowerConeFrontFaceAngle(angle);
+
+  DesignParms->LowerConeFrontFaceAngle = angle;
 }
 
 void MOLLEROptDetector::SetLowerConeBackFaceAngle(G4double angle)
 {
   if(LightGuide)
     LightGuide->SetLowerConeBackFaceAngle(angle);
+
+  DesignParms->LowerConeBackFaceAngle = angle;
 }
 
 void MOLLEROptDetector::SetLowerConeSideFaceAngle(G4double angle)
@@ -97,18 +123,22 @@ void MOLLEROptDetector::SetLowerConeSideFaceAngle(G4double angle)
   if(LightGuide){
     LightGuide->SetLowerConeSideFaceAngle(angle);
   }
+  DesignParms->LowerConeSideFaceAngle = angle;
 }
 
 void MOLLEROptDetector::SetQuartzInterfaceOpeningZ(G4double size)
 {
   if(LightGuide)
     LightGuide->SetQuartzInterfaceOpeningZ(size);
+  DesignParms->QuartzInterfaceOpeningZ = size;
+
 }
 
 void MOLLEROptDetector::SetQuartzInterfaceOpeningX(G4double size)
 {
   if(LightGuide)
     LightGuide->SetQuartzInterfaceOpeningX(size);
+  DesignParms->QuartzInterfaceOpeningX = size;
 }
 
 void MOLLEROptDetector::SetPMTInterfaceOpeningZ(G4double size)
@@ -117,6 +147,9 @@ void MOLLEROptDetector::SetPMTInterfaceOpeningZ(G4double size)
     LightGuide->SetPMTInterfaceOpeningZ(size);
   if(PMT)
     PMT->SetLGInterfaceOpeningZ(size);
+
+  DesignParms->PMTInterfaceOpeningZ = size;
+
 }
 
 void MOLLEROptDetector::SetPMTInterfaceOpeningX(G4double size)
@@ -125,6 +158,8 @@ void MOLLEROptDetector::SetPMTInterfaceOpeningX(G4double size)
     LightGuide->SetPMTInterfaceOpeningX(size);
   if(PMT)
     PMT->SetLGInterfaceOpeningX(size);
+
+  DesignParms->PMTInterfaceOpeningX = size;
 }
 
 
@@ -135,6 +170,8 @@ void MOLLEROptDetector::SetQuartzToPMTOffsetInZ(G4double val)
     LightGuide->SetQuartzToPMTOffsetInZ(val);
   if(PMT)
     PMT->SetCenterPositionInZ(val);
+
+  DesignParms->QuartzToPMTOffsetInZ = val;
 }
 
 
@@ -147,6 +184,8 @@ void MOLLEROptDetector::SetAzimuthalRotationAngle(G4double val)
 void MOLLEROptDetector::SetPolarRotationAngle(G4double val)
 {
   PolarAngle = val;
+
+  DesignParms->DetectorRotation = val/degree;
 
 }
 
@@ -163,6 +202,8 @@ void MOLLEROptDetector::SetPMTCathodeRadius(G4double val)
   if(LightGuide)
     LightGuide->SetPMTOpeningRadius(val);
 }
+
+
 
 
 
@@ -441,3 +482,7 @@ void MOLLEROptDetector::GetLightGuideLimits(G4double *vals)
 }
 
 
+DesignParameters*  MOLLEROptDetector::GetDesignParameters()
+{
+  return DesignParms;
+}

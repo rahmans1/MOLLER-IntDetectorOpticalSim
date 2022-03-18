@@ -35,7 +35,7 @@ G4bool MOLLEROptLightGuideSD::ProcessHits(G4Step* aStep, G4TouchableHistory* the
   G4ProcessVector* postStepDoItVector = OpManager->GetPostStepProcessVector(typeDoIt);
   G4VProcess* currentProcess;
   G4OpBoundaryProcessStatus theStatus = Undefined;
-  MOLLEROptLightGuideHit* aHit = new MOLLEROptLightGuideHit();
+  // MOLLEROptLightGuideHit* aHit = new MOLLEROptLightGuideHit();
   G4double incidentAngle = -180;
 
   if(aStep->GetTrack()->GetDefinition() == G4OpticalPhoton::OpticalPhotonDefinition()){
