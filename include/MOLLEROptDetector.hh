@@ -30,8 +30,9 @@ struct DesignParameters{
   G4double PMTInterfaceOpeningZ;
   G4double PMTInterfaceOpeningX;
   G4double QuartzToPMTOffsetInZ;
-  G4double QuartzBevel;            
-
+  G4double QuartzBevel;
+  G4double QuartzRotation;
+  G4double DetectorRotation;
 };
 
 

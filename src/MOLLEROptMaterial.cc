@@ -355,6 +355,9 @@ void MOLLEROptMaterial::SetOpticalParameters()
     }
   }
 
+    G4cout << "Done reading optical properties file." << endl;
+
+
   AbsPtr =  OptPar->QAbs; //initial set to no radiation damage
 
 

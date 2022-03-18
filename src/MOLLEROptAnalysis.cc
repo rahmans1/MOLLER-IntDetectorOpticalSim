@@ -85,6 +85,8 @@ void MOLLEROptAnalysis::EndOfRun()
     TVectorD QuartzToPMTOffsetInZ(1);
     TVectorD QuartzBevel(1);
     TVectorD HitRegion(1);
+    TVectorD QuartzRotation(1);
+    TVectorD DetectorRotation(1);
 
     QuartzSizeX[0] =             parms->QuartzSizeX;            ; 
     QuartzSizeY[0] =             parms->QuartzSizeY; 
@@ -100,7 +102,10 @@ void MOLLEROptAnalysis::EndOfRun()
     PMTInterfaceOpeningX[0] =    parms->PMTInterfaceOpeningX;  
     QuartzToPMTOffsetInZ[0] =    parms->QuartzToPMTOffsetInZ;  
     QuartzBevel[0] =             parms->QuartzBevel;
+    QuartzRotation[0] =          parms->QuartzRotation;        
+    DetectorRotation[0] =        parms->DetectorRotation;
     HitRegion[0] =               Construction->GetEventHitRegion();
+
     
     QuartzSizeX.Write("QuartzSizeX");            
     QuartzSizeY.Write("QuartzSizeY");            
@@ -117,6 +122,8 @@ void MOLLEROptAnalysis::EndOfRun()
     PMTInterfaceOpeningX.Write("PMTInterfaceOpeningX");  
     QuartzToPMTOffsetInZ.Write("QuartzToPMTOffsetInZ");  
     QuartzBevel.Write("QuartzBevel");
+    QuartzRotation.Write("QuartzRotation");
+    DetectorRotation.Write("DetectorRotation");
     HitRegion.Write("HitRegion");
     
     MOLLEROptFile->Write("",TObject::kOverwrite); // Writing the data to the ROOT file

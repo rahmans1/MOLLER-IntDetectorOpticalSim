@@ -74,6 +74,7 @@ void MOLLEROptDetector::SetQuartzRotX(G4double rX)
   //still hit the detector at normal incidence.
 
   //RotationDet->rotateX(-rX);
+  DesignParms->QuartzRotation = rX/degree;
 }
 
 void MOLLEROptDetector::SetQuartzBevel(G4double bev)
@@ -183,6 +184,8 @@ void MOLLEROptDetector::SetAzimuthalRotationAngle(G4double val)
 void MOLLEROptDetector::SetPolarRotationAngle(G4double val)
 {
   PolarAngle = val;
+
+  DesignParms->DetectorRotation = val/degree;
 
 }
 
