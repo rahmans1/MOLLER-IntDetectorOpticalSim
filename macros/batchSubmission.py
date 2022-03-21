@@ -9,6 +9,7 @@ import argparse
 import numpy as np
 
 parser = argparse.ArgumentParser(description="Submit array jobs to ifarm.")
+parser.add_argument("-c", dest="cluster", action="store", required=True, help="Enter the Server Name. Example: ifarm,grex,beluga")
 parser.add_argument("-a", dest="account", action="store", required=True, help="Enter the Jefferson Lab account. Example: halla")  
 parser.add_argument("-s", dest="src", action="store", required=False, default="/w/halla-scshelf2102/moller12gev/rahmans/mollerOpticalSim", help="source folder where simulation directory exists")
 parser.add_argument("-v", dest="version", action="store", required=False, default="MOLLER-IntDetectorOpticalSim", help= "choose the version of simulation to use. Should just be the name of the repository unless you rename local folder")
@@ -84,8 +85,11 @@ for i in range(int(x[:index-1]),1+int(x[index:])):
   jsubf.write("PolarRotation["+str(i)+"]="+PolarRotation[i-(1+int(x[index:])-int(x[:index-1]))]+"\n")
   jsubf.write("LightGuideQuartzToPMTOffset["+str(i)+"]="+LightGuideQuartzToPMTOffset[i-(1+int(x[index:])-int(x[:index-1]))]+"\n")
 
-jsubf.write("cd /scratch/slurm\n")
-jsubf.write("cd ${SLURM_JOB_ID}\n")
+if (args.cluster == "ifarm"):
+  jsubf.write("cd /scratch/slurm\n")
+  jsubf.write("cd ${SLURM_JOB_ID}\n")
+if (args.cluster == "grex"):
+  jsubf.write("cd /scratch")
 jsubf.write("mkdir ${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}\n")
 jsubf.write("cd ${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}\n")
 macro="run.mac"
@@ -115,12 +119,17 @@ jsubf.write("cp -r "+args.src+"/"+args.version+" .\n")
 jsubf.write("cd "+args.version+"/build \n")
 jsubf.write("echo \"Current working directory is `pwd`\"\n")
 jsubf.write("cat << EOF | "+args.eic_shell+"\n")
-jsubf.write("./MOLLEROpt /scratch/slurm/${SLURM_JOB_ID}/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}/run.mac\n")
+if (args.cluster == "ifarm"):
+  jsubf.write("./MOLLEROpt /scratch/slurm/${SLURM_JOB_ID}/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}/run.mac\n")
+if (args.cluster == "grex"):
+  jsubf.write("./MOLLEROpt /scratch/${SLURM_JOB_ID}/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}/run.mac\n")
 jsubf.write("EOF\n")
 jsubf.write("echo \"Program remoll finished with exit code $? at: `date`\"\n")
 jsubf.write("cp *.root "+out+"\n")
-jsubf.write("rm -rf /scratch/slurm/${SLURM_JOB_ID}/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}")
-
+if (args.cluster == "ifarm"):
+  jsubf.write("rm -rf /scratch/slurm/${SLURM_JOB_ID}/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}")
+if (args.cluster == "grex"):
+  jsubf.write("rm -rf /scratch/${SLURM_JOB_ID}/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}")
 jsubf.close()
 	        
                 
