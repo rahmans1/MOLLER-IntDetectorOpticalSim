@@ -59,7 +59,10 @@ LightGuideQuartzToPMTOffset = list(map(str, np.random.uniform(-0.001,0.001,size=
 jsubf=open(args.jsub_dir+"/run.sh", "w")
 jsubf.write("#!/bin/bash\n")
 jsubf.write("#SBATCH --account="+args.account+"\n")
-jsubf.write("#SBATCH --partition=production\n")
+if (args.cluster == "ifarm"):
+  jsubf.write("#SBATCH --partition=production\n")
+if (args.cluster == "grex"):
+  jsubf.write("#SBATCH --partition=compute\n")
 jsubf.write("#SBATCH --job-name=molleropt\n")
 jsubf.write("#SBATCH --time="+args.time+" \n")
 jsubf.write("#SBATCH --nodes=1\n")
