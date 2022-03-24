@@ -92,7 +92,7 @@ if (args.cluster == "ifarm"):
   jsubf.write("cd /scratch/slurm\n")
   jsubf.write("cd ${SLURM_JOB_ID}\n")
 if (args.cluster == "grex"):
-  jsubf.write("cd /scratch")
+  jsubf.write("cd /scratch\n")
 jsubf.write("mkdir ${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}\n")
 jsubf.write("cd ${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}\n")
 macro="run.mac"
@@ -130,9 +130,9 @@ jsubf.write("EOF\n")
 jsubf.write("echo \"Program remoll finished with exit code $? at: `date`\"\n")
 jsubf.write("cp *.root "+out+"\n")
 if (args.cluster == "ifarm"):
-  jsubf.write("rm -rf /scratch/slurm/${SLURM_JOB_ID}/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}")
+  jsubf.write("rm -rf /scratch/slurm/${SLURM_JOB_ID}/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}\n")
 if (args.cluster == "grex"):
-  jsubf.write("rm -rf /scratch/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}")
+  jsubf.write("rm -rf /scratch/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}\n")
 jsubf.close()
 	        
                 
