@@ -91,7 +91,7 @@ for i in range(int(x[:index-1]),1+int(x[index:])):
 if (args.cluster == "ifarm"):
   jsubf.write("cd /scratch/slurm\n")
   jsubf.write("cd ${SLURM_JOB_ID}\n")
-if (args.cluster == "grex"):
+if (args.cluster == "grex" or args.cluster == "beluga" or args.cluster == "narval"):
   jsubf.write("cd /scratch\n")
 jsubf.write("mkdir ${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}\n")
 jsubf.write("cd ${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}\n")
@@ -124,14 +124,14 @@ jsubf.write("echo \"Current working directory is `pwd`\"\n")
 jsubf.write("cat << EOF | "+args.eic_shell+"\n")
 if (args.cluster == "ifarm"):
   jsubf.write("./MOLLEROpt /scratch/slurm/${SLURM_JOB_ID}/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}/run.mac\n")
-if (args.cluster == "grex"):
+if (args.cluster == "grex" or args.cluster == "beluga" or args.cluster == "narval"):
   jsubf.write("./MOLLEROpt /scratch/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}/run.mac\n")
 jsubf.write("EOF\n")
 jsubf.write("echo \"Program remoll finished with exit code $? at: `date`\"\n")
 jsubf.write("cp *.root "+out+"\n")
 if (args.cluster == "ifarm"):
   jsubf.write("rm -rf /scratch/slurm/${SLURM_JOB_ID}/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}\n")
-if (args.cluster == "grex"):
+if (args.cluster == "grex" or args.cluster == "beluga" or args.cluster == "narval"):
   jsubf.write("rm -rf /scratch/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}\n")
 jsubf.close()
 	        
