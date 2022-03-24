@@ -122,14 +122,14 @@ jsubf.write("cat << EOF | "+args.eic_shell+"\n")
 if (args.cluster == "ifarm"):
   jsubf.write("./MOLLEROpt /scratch/slurm/${SLURM_JOB_ID}/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}/run.mac\n")
 if (args.cluster == "grex"):
-  jsubf.write("./MOLLEROpt /scratch/${SLURM_JOB_ID}/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}/run.mac\n")
+  jsubf.write("./MOLLEROpt /scratch/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}/run.mac\n")
 jsubf.write("EOF\n")
 jsubf.write("echo \"Program remoll finished with exit code $? at: `date`\"\n")
 jsubf.write("cp *.root "+out+"\n")
 if (args.cluster == "ifarm"):
   jsubf.write("rm -rf /scratch/slurm/${SLURM_JOB_ID}/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}")
 if (args.cluster == "grex"):
-  jsubf.write("rm -rf /scratch/${SLURM_JOB_ID}/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}")
+  jsubf.write("rm -rf /scratch/${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}")
 jsubf.close()
 	        
                 
