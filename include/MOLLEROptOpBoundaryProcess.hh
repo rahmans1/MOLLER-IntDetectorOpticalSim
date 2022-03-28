@@ -76,7 +76,7 @@ class MOLLEROptOpBoundaryProcess : public G4OpBoundaryProcess
               angles_keys.push_back(std::make_pair(angle,name));
             }
           }
-          sort(angle_keys.rbegin(), angle_keys.rend());
+          sort(angles_keys.rbegin(), angles_keys.rend());
 
           // Find angle index to use
           const auto lower_bound = std::lower_bound(angles_keys.begin(), angles_keys.end(), incident_angle,
