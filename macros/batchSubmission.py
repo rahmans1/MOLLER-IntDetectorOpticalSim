@@ -46,11 +46,13 @@ LightGuideLowerInterface = list(map(str, np.random.uniform(65,95,size=1+int(x[in
 LightGuideUpperInterface = list(map(str, np.random.uniform(611,621,size=1+int(x[index:])-int(x[:index-1]))))
 LightGuidePMTInterfaceOpeningX = list(map(str, np.random.uniform(70,70, size=1+int(x[index:])-int(x[:index-1]))))
 LightGuidePMTInterfaceOpeningZ = list(map(str, np.random.uniform(70,70, size=1+int(x[index:])-int(x[:index-1]))))
-QuartzSizeZ = list(map(str, np.random.uniform(10,30,size=1+int(x[index:])-int(x[:index-1]))))
-QuartzSizeX = list(map(str, np.random.uniform(177,177,size=1+int(x[index:])-int(x[:index-1]))))
+QuartzSizeZ = np.random.uniform(10,30,size=1+int(x[index:])-int(x[:index-1]))
+QuartzSizeX = np.random.uniform(177,177,size=1+int(x[index:])-int(x[:index-1]))
 QuartzSizeY = list(map(str, np.random.uniform(60,60,size=1+int(x[index:])-int(x[:index-1]))))
-LightGuideQuartzInterfaceOpeningX = np.array(map(float,QuartzSizeX)) + 8
-LightGuideQuartzInterfaceOpeningZ = np.array(map(float,QuartzSizeZ)) + 7
+LightGuideQuartzInterfaceOpeningX = list(map(str,QuartzSizeX+8))
+LightGuideQuartzInterfaceOpeningZ = list(map(str,QuartzSizeZ+7))
+QuartzSizeZ = list(map(str, QuartzSizeZ))
+QuartzSizeX = list(map(str, QuartzSizeX))
 QuartzBevelSize = list(map(str, np.random.uniform(0.5,0.5,size=(1+int(x[index:])-int(x[:index-1])))))
 QuartzRotX = list(map(str, np.random.uniform(-3,-3,size=(1+int(x[index:])-int(x[:index-1])))))
 PolarRotation = list(map(str, np.random.uniform(3,3,size=(1+int(x[index:])-int(x[:index-1])))))
