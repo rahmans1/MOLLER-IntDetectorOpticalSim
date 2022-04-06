@@ -19,6 +19,7 @@ parser.add_argument("-t", dest="tmp_dir", action="store", required=True, help="c
 parser.add_argument("-o", dest="out_dir", action="store", required=True, help="choose where to write the output root files")
 parser.add_argument("-r", dest="run_range", action = "store", required=False, default="1", help="provide run range. Example: \"2-5\"")
 parser.add_argument("-n", dest="n_events", action= "store", required=False, default=1000, help= "provide number of events per job in the array")
+parser.add_argument("--hr", dest="hit_region", action= "store", required=False, default=1000, help= "provide the hit region. 1 for quartz, 2 for lower lg, 3 for upper lg.")
 parser.add_argument("--time", dest="time", action= "store", required= False, default= "00:25:00", help= "provide the estimated run time. Ex: \"00:25:00\". Usually it is 10 minutes for 1000 moller events.")
 
 args=parser.parse_args()
@@ -39,7 +40,7 @@ out=os.path.realpath(args.out_dir)
 x=args.run_range
 index=x.rfind("-")+1
 
-EventHitRegion = str(4)
+EventHitRegion = args.hit_region
 generator = np.random.default_rng()
 LightGuideLowerConeBackAngle = list(map(str, generator.integers(1,46,size=1+int(x[index:])-int(x[:index-1]))))
 LightGuideLowerConeFrontAngle = list(map(str, generator.integers(1,46,size=1+int(x[index:])-int(x[:index-1]))))
