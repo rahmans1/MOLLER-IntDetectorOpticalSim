@@ -17,9 +17,9 @@ parser.add_argument("-e", dest="eic_shell", action="store", required=False, defa
 parser.add_argument("-j", dest="jsub_dir", action="store", required=True, help="choose directory to write the slurm submission scripts")
 parser.add_argument("-t", dest="tmp_dir", action="store", required=True, help="choose directory to write the slurm output logs")
 parser.add_argument("-o", dest="out_dir", action="store", required=True, help="choose where to write the output root files")
-parser.add_argument("-r", dest="run_range", action = "store", required=False, default="1", help="provide run range. Example: \"2-5\"")
+parser.add_argument("-r", dest="run_range", action = "store", required=False, default="1-2", help="provide run range. Example: \"2-5\"")
 parser.add_argument("-n", dest="n_events", action= "store", required=False, default=1000, help= "provide number of events per job in the array")
-parser.add_argument("--hr", dest="hit_region", action= "store", required=False, default=1000, help= "provide the hit region. 1 for quartz, 2 for lower lg, 3 for upper lg.")
+parser.add_argument("--hr", dest="hit_region", action= "store", required=False, default=1, help= "provide the hit region. 1 for quartz, 2 for lower lg, 3 for upper lg.")
 parser.add_argument("--time", dest="time", action= "store", required= False, default= "00:25:00", help= "provide the estimated run time. Ex: \"00:25:00\". Usually it is 10 minutes for 1000 moller events.")
 
 args=parser.parse_args()
