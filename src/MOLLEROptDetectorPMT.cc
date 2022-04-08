@@ -144,6 +144,12 @@ G4VPhysicalVolume* MOLLEROptDetectorPMT::Construct(G4VPhysicalVolume* Mother)
   Position  = G4ThreeVector(PositionX,
 			    PositionY,
 			    PositionZ);
+
+  cout << endl;
+  cout << endl;
+  cout << PositionX << " " << PositionY << " " << PositionZ << endl;
+  cout << endl;
+  cout << endl;
   
   PMTPhysical = new G4PVPlacement(Rotation,  
 				  Position, 

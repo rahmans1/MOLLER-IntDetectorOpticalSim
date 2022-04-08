@@ -248,26 +248,26 @@ void MOLLEROptDetectorLightGuide::DefineGeometry()
   //do the innter surface first **************************************************************************************************
  
   G4double LowerIP_x = LowerInterfacePlane*TMath::Tan(LowerConeSideFaceAngle)+QuartzInterfaceOpeningX/2;
-  G4double LowerIP_py = LowerInterfacePlane*TMath::Tan(LowerConeFrontFaceAngle)+QuartzInterfaceOpeningZ/2;
-  G4double LowerIP_ny = -LowerInterfacePlane*TMath::Tan(LowerConeBackFaceAngle)-QuartzInterfaceOpeningZ/2;
+  G4double LowerIP_pz = LowerInterfacePlane*TMath::Tan(LowerConeFrontFaceAngle)+QuartzInterfaceOpeningZ/2;
+  G4double LowerIP_nz = -LowerInterfacePlane*TMath::Tan(LowerConeBackFaceAngle)-QuartzInterfaceOpeningZ/2;
 
   LowerConeVertices[0] = G4TwoVector(QuartzInterfaceOpeningX/2,-QuartzInterfaceOpeningZ/2);
   LowerConeVertices[1] = G4TwoVector(-QuartzInterfaceOpeningX/2,-QuartzInterfaceOpeningZ/2);
   LowerConeVertices[2] = G4TwoVector(-QuartzInterfaceOpeningX/2,QuartzInterfaceOpeningZ/2);
   LowerConeVertices[3] = G4TwoVector(QuartzInterfaceOpeningX/2,QuartzInterfaceOpeningZ/2);
 
-  LowerConeVertices[4] = G4TwoVector(LowerIP_x,LowerIP_ny);
-  LowerConeVertices[5] = G4TwoVector(-LowerIP_x,LowerIP_ny);
-  LowerConeVertices[6] = G4TwoVector(-LowerIP_x,LowerIP_py);
-  LowerConeVertices[7] = G4TwoVector(LowerIP_x,LowerIP_py);
+  LowerConeVertices[4] = G4TwoVector(LowerIP_x,LowerIP_nz);
+  LowerConeVertices[5] = G4TwoVector(-LowerIP_x,LowerIP_nz);
+  LowerConeVertices[6] = G4TwoVector(-LowerIP_x,LowerIP_pz);
+  LowerConeVertices[7] = G4TwoVector(LowerIP_x,LowerIP_pz);
 
-  UpperConeVertices[0] = G4TwoVector(LowerIP_x,LowerIP_ny);
-  UpperConeVertices[1] = G4TwoVector(-LowerIP_x,LowerIP_ny);
-  UpperConeVertices[2] = G4TwoVector(-LowerIP_x,LowerIP_py);
-  UpperConeVertices[3] = G4TwoVector(LowerIP_x,LowerIP_py);
+  UpperConeVertices[0] = G4TwoVector(LowerIP_x,LowerIP_nz);
+  UpperConeVertices[1] = G4TwoVector(-LowerIP_x,LowerIP_nz);
+  UpperConeVertices[2] = G4TwoVector(-LowerIP_x,LowerIP_pz);
+  UpperConeVertices[3] = G4TwoVector(LowerIP_x,LowerIP_pz);
 
-  UpperConeVertices[4] = G4TwoVector(PMTInterfaceOpeningX/2,-(PMTInterfaceOpeningZ/2+QuartzToPMTOffsetInZ));
-  UpperConeVertices[5] = G4TwoVector(-PMTInterfaceOpeningX/2,-(PMTInterfaceOpeningZ/2+QuartzToPMTOffsetInZ));
+  UpperConeVertices[4] = G4TwoVector(PMTInterfaceOpeningX/2,-PMTInterfaceOpeningZ/2-QuartzToPMTOffsetInZ);
+  UpperConeVertices[5] = G4TwoVector(-PMTInterfaceOpeningX/2,-PMTInterfaceOpeningZ/2-QuartzToPMTOffsetInZ);
   UpperConeVertices[6] = G4TwoVector(-PMTInterfaceOpeningX/2,PMTInterfaceOpeningZ/2-QuartzToPMTOffsetInZ);
   UpperConeVertices[7] = G4TwoVector(PMTInterfaceOpeningX/2,PMTInterfaceOpeningZ/2-QuartzToPMTOffsetInZ);  
 
@@ -276,26 +276,26 @@ void MOLLEROptDetectorLightGuide::DefineGeometry()
   //now do the outer surface ******************************************************************************************************
 
   LowerIP_x = LowerInterfacePlane*TMath::Tan(LowerConeSideFaceAngle)+ (QuartzInterfaceOpeningX+2.0*mm)/2;
-  LowerIP_py = LowerInterfacePlane*TMath::Tan(LowerConeFrontFaceAngle)+ (QuartzInterfaceOpeningZ+2.0*mm)/2;
-  LowerIP_ny = -LowerInterfacePlane*TMath::Tan(LowerConeBackFaceAngle)-(QuartzInterfaceOpeningZ+2.0*mm)/2;
+  LowerIP_pz = LowerInterfacePlane*TMath::Tan(LowerConeFrontFaceAngle)+ (QuartzInterfaceOpeningZ+2.0*mm)/2;
+  LowerIP_nz = -LowerInterfacePlane*TMath::Tan(LowerConeBackFaceAngle)-(QuartzInterfaceOpeningZ+2.0*mm)/2;
   
   LowerConeVertices_out[0] = G4TwoVector((QuartzInterfaceOpeningX+2.0*mm)/2,-(QuartzInterfaceOpeningZ+2.0*mm)/2);
   LowerConeVertices_out[1] = G4TwoVector(-(QuartzInterfaceOpeningX+2.0*mm)/2,-(QuartzInterfaceOpeningZ+2.0*mm)/2);
   LowerConeVertices_out[2] = G4TwoVector(-(QuartzInterfaceOpeningX+2.0*mm)/2,(QuartzInterfaceOpeningZ+2.0*mm)/2);
   LowerConeVertices_out[3] = G4TwoVector((QuartzInterfaceOpeningX+2.0*mm)/2,(QuartzInterfaceOpeningZ+2.0*mm)/2);
 
-  LowerConeVertices_out[4] = G4TwoVector(LowerIP_x,LowerIP_ny);
-  LowerConeVertices_out[5] = G4TwoVector(-LowerIP_x,LowerIP_ny);
-  LowerConeVertices_out[6] = G4TwoVector(-LowerIP_x,LowerIP_py);
-  LowerConeVertices_out[7] = G4TwoVector(LowerIP_x,LowerIP_py);
+  LowerConeVertices_out[4] = G4TwoVector(LowerIP_x,LowerIP_nz);
+  LowerConeVertices_out[5] = G4TwoVector(-LowerIP_x,LowerIP_nz);
+  LowerConeVertices_out[6] = G4TwoVector(-LowerIP_x,LowerIP_pz);
+  LowerConeVertices_out[7] = G4TwoVector(LowerIP_x,LowerIP_pz);
   
-  UpperConeVertices_out[0] = G4TwoVector(LowerIP_x,LowerIP_ny);
-  UpperConeVertices_out[1] = G4TwoVector(-LowerIP_x,LowerIP_ny);
-  UpperConeVertices_out[2] = G4TwoVector(-LowerIP_x,LowerIP_py);
-  UpperConeVertices_out[3] = G4TwoVector(LowerIP_x,LowerIP_py);
+  UpperConeVertices_out[0] = G4TwoVector(LowerIP_x,LowerIP_nz);
+  UpperConeVertices_out[1] = G4TwoVector(-LowerIP_x,LowerIP_nz);
+  UpperConeVertices_out[2] = G4TwoVector(-LowerIP_x,LowerIP_pz);
+  UpperConeVertices_out[3] = G4TwoVector(LowerIP_x,LowerIP_pz);
 
-  UpperConeVertices_out[4] = G4TwoVector((PMTInterfaceOpeningX+2.0*mm)/2,-((PMTInterfaceOpeningZ+2.0*mm)/2+QuartzToPMTOffsetInZ));
-  UpperConeVertices_out[5] = G4TwoVector(-(PMTInterfaceOpeningX+2.0*mm)/2,-((PMTInterfaceOpeningZ+2.0*mm)/2+QuartzToPMTOffsetInZ));
+  UpperConeVertices_out[4] = G4TwoVector((PMTInterfaceOpeningX+2.0*mm)/2,-(PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ);
+  UpperConeVertices_out[5] = G4TwoVector(-(PMTInterfaceOpeningX+2.0*mm)/2,-(PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ);
   UpperConeVertices_out[6] = G4TwoVector(-(PMTInterfaceOpeningX+2.0*mm)/2,(PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ);
   UpperConeVertices_out[7] = G4TwoVector((PMTInterfaceOpeningX+2.0*mm)/2,(PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ);
 
@@ -303,7 +303,7 @@ void MOLLEROptDetectorLightGuide::DefineGeometry()
 
   GuideTotalLength = UpperInterfacePlane;
   GuideTotalWidth = 2*LowerIP_x;
-  GuideTotalDepth = LowerIP_py-LowerIP_ny;
+  GuideTotalDepth = LowerIP_pz-LowerIP_nz;
   
   LowerCone = new G4GenericTrap(thisName+"_LowerConeSolid",LowerInterfacePlane/2,LowerConeVertices);
   UpperCone = new G4GenericTrap(thisName+"_UpperConeSolid",(UpperInterfacePlane-LowerInterfacePlane)/2,UpperConeVertices);
@@ -350,8 +350,8 @@ void MOLLEROptDetectorLightGuide::ExportGeometrySTL()
 {
   
   G4double LowerIP_x = LowerInterfacePlane*TMath::Tan(LowerConeSideFaceAngle)+ (QuartzInterfaceOpeningX+2.0*mm)/2;
-  G4double LowerIP_py = LowerInterfacePlane*TMath::Tan(LowerConeFrontFaceAngle)+ (QuartzInterfaceOpeningZ+2.0*mm)/2;
-  G4double LowerIP_ny = -LowerInterfacePlane*TMath::Tan(LowerConeBackFaceAngle)-(QuartzInterfaceOpeningZ+2.0*mm)/2;
+  G4double LowerIP_pz = LowerInterfacePlane*TMath::Tan(LowerConeFrontFaceAngle)+ (QuartzInterfaceOpeningZ+2.0*mm)/2;
+  G4double LowerIP_nz = -LowerInterfacePlane*TMath::Tan(LowerConeBackFaceAngle)-(QuartzInterfaceOpeningZ+2.0*mm)/2;
   
   LowerConeBottom[0].set((QuartzInterfaceOpeningX+2.0*mm)/2,0,-(QuartzInterfaceOpeningZ+2.0*mm)/2);
   LowerConeBottom[1].set((QuartzInterfaceOpeningX+2.0*mm)/2,0,(QuartzInterfaceOpeningZ+2.0*mm)/2);
@@ -361,58 +361,58 @@ void MOLLEROptDetectorLightGuide::ExportGeometrySTL()
 
   LowerConeFront[0].set((QuartzInterfaceOpeningX+2.0*mm)/2,0,-(QuartzInterfaceOpeningZ+2.0*mm)/2);
   LowerConeFront[1].set(-(QuartzInterfaceOpeningX+2.0*mm)/2,0,-(QuartzInterfaceOpeningZ+2.0*mm)/2);
-  LowerConeFront[2].set(-LowerIP_x,LowerInterfacePlane,LowerIP_ny);
-  LowerConeFront[3].set(LowerIP_x,LowerInterfacePlane,LowerIP_ny); 
+  LowerConeFront[2].set(-LowerIP_x,LowerInterfacePlane,LowerIP_nz);
+  LowerConeFront[3].set(LowerIP_x,LowerInterfacePlane,LowerIP_nz); 
   LowerConeFront[4].set((QuartzInterfaceOpeningX+2.0*mm)/2,0,-(QuartzInterfaceOpeningZ+2.0*mm)/2);
   
   LowerConeBack[0].set((QuartzInterfaceOpeningX+2.0*mm)/2,0,(QuartzInterfaceOpeningZ+2.0*mm)/2);
-  LowerConeBack[1].set(LowerIP_x,LowerInterfacePlane,LowerIP_py); 
-  LowerConeBack[2].set(-LowerIP_x,LowerInterfacePlane,LowerIP_py);
+  LowerConeBack[1].set(LowerIP_x,LowerInterfacePlane,LowerIP_pz); 
+  LowerConeBack[2].set(-LowerIP_x,LowerInterfacePlane,LowerIP_pz);
   LowerConeBack[3].set(-(QuartzInterfaceOpeningX+2.0*mm)/2,0,(QuartzInterfaceOpeningZ+2.0*mm)/2);    
   LowerConeBack[4].set((QuartzInterfaceOpeningX+2.0*mm)/2,0,(QuartzInterfaceOpeningZ+2.0*mm)/2);
   
   LowerConeSide1[0].set((QuartzInterfaceOpeningX+2.0*mm)/2,0,(QuartzInterfaceOpeningZ+2.0*mm)/2);
   LowerConeSide1[1].set((QuartzInterfaceOpeningX+2.0*mm)/2,0,-(QuartzInterfaceOpeningZ+2.0*mm)/2);
-  LowerConeSide1[2].set(LowerIP_x,LowerInterfacePlane,LowerIP_ny);
-  LowerConeSide1[3].set(LowerIP_x,LowerInterfacePlane,LowerIP_py);
+  LowerConeSide1[2].set(LowerIP_x,LowerInterfacePlane,LowerIP_nz);
+  LowerConeSide1[3].set(LowerIP_x,LowerInterfacePlane,LowerIP_pz);
   LowerConeSide1[4].set((QuartzInterfaceOpeningX+2.0*mm)/2,0,(QuartzInterfaceOpeningZ+2.0*mm)/2);
   
   LowerConeSide2[0].set(-(QuartzInterfaceOpeningX+2.0*mm)/2,0,-(QuartzInterfaceOpeningZ+2.0*mm)/2);
   LowerConeSide2[1].set(-(QuartzInterfaceOpeningX+2.0*mm)/2,0,(QuartzInterfaceOpeningZ+2.0*mm)/2);
-  LowerConeSide2[2].set(-LowerIP_x,LowerInterfacePlane,LowerIP_py);
-  LowerConeSide2[3].set(-LowerIP_x,LowerInterfacePlane,LowerIP_ny);
+  LowerConeSide2[2].set(-LowerIP_x,LowerInterfacePlane,LowerIP_pz);
+  LowerConeSide2[3].set(-LowerIP_x,LowerInterfacePlane,LowerIP_nz);
   LowerConeSide2[4].set(-(QuartzInterfaceOpeningX+2.0*mm)/2,0,-(QuartzInterfaceOpeningZ+2.0*mm)/2);
 
   
-  UpperConeFront[0].set(LowerIP_x,LowerInterfacePlane,LowerIP_ny);
-  UpperConeFront[1].set(-LowerIP_x,LowerInterfacePlane,LowerIP_ny);
-  UpperConeFront[2].set(-(PMTInterfaceOpeningX+2.0*mm)/2,UpperInterfacePlane,-((PMTInterfaceOpeningZ+2.0*mm)/2+QuartzToPMTOffsetInZ));
-  UpperConeFront[3].set((PMTInterfaceOpeningX+2.0*mm)/2,UpperInterfacePlane,-((PMTInterfaceOpeningZ+2.0*mm)/2+QuartzToPMTOffsetInZ));
-  UpperConeFront[4].set(LowerIP_x,LowerInterfacePlane,LowerIP_ny);
+  UpperConeFront[0].set(LowerIP_x,LowerInterfacePlane,LowerIP_nz);
+  UpperConeFront[1].set(-LowerIP_x,LowerInterfacePlane,LowerIP_nz);
+  UpperConeFront[2].set(-(PMTInterfaceOpeningX+2.0*mm)/2,UpperInterfacePlane,-(PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ);
+  UpperConeFront[3].set((PMTInterfaceOpeningX+2.0*mm)/2,UpperInterfacePlane,-(PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ);
+  UpperConeFront[4].set(LowerIP_x,LowerInterfacePlane,LowerIP_nz);
 
-  UpperConeBack[0].set(-LowerIP_x,LowerInterfacePlane,LowerIP_py);
-  UpperConeBack[1].set(LowerIP_x,LowerInterfacePlane,LowerIP_py);
-  UpperConeBack[2].set((PMTInterfaceOpeningX+2.0*mm)/2,UpperInterfacePlane,((PMTInterfaceOpeningZ+2.0*mm)/2+QuartzToPMTOffsetInZ));
-  UpperConeBack[3].set(-(PMTInterfaceOpeningX+2.0*mm)/2,UpperInterfacePlane,((PMTInterfaceOpeningZ+2.0*mm)/2+QuartzToPMTOffsetInZ));
-  UpperConeBack[4].set(-LowerIP_x,LowerInterfacePlane,LowerIP_py);
+  UpperConeBack[0].set(-LowerIP_x,LowerInterfacePlane,LowerIP_pz);
+  UpperConeBack[1].set(LowerIP_x,LowerInterfacePlane,LowerIP_pz);
+  UpperConeBack[2].set((PMTInterfaceOpeningX+2.0*mm)/2,UpperInterfacePlane,(PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ);
+  UpperConeBack[3].set(-(PMTInterfaceOpeningX+2.0*mm)/2,UpperInterfacePlane,(PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ);
+  UpperConeBack[4].set(-LowerIP_x,LowerInterfacePlane,LowerIP_pz);
 
-  UpperConeSide1[0].set(LowerIP_x,LowerInterfacePlane,LowerIP_ny);
-  UpperConeSide1[1].set((PMTInterfaceOpeningX+2.0*mm)/2,UpperInterfacePlane,-((PMTInterfaceOpeningZ+2.0*mm)/2+QuartzToPMTOffsetInZ));
-  UpperConeSide1[2].set((PMTInterfaceOpeningX+2.0*mm)/2,UpperInterfacePlane,((PMTInterfaceOpeningZ+2.0*mm)/2+QuartzToPMTOffsetInZ));
-  UpperConeSide1[3].set(LowerIP_x,LowerInterfacePlane,LowerIP_py);
-  UpperConeSide1[4].set(LowerIP_x,LowerInterfacePlane,LowerIP_ny);
+  UpperConeSide1[0].set(LowerIP_x,LowerInterfacePlane,LowerIP_nz);
+  UpperConeSide1[1].set((PMTInterfaceOpeningX+2.0*mm)/2,UpperInterfacePlane,-(PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ);
+  UpperConeSide1[2].set((PMTInterfaceOpeningX+2.0*mm)/2,UpperInterfacePlane,(PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ);
+  UpperConeSide1[3].set(LowerIP_x,LowerInterfacePlane,LowerIP_pz);
+  UpperConeSide1[4].set(LowerIP_x,LowerInterfacePlane,LowerIP_nz);
 
-  UpperConeSide2[0].set(-LowerIP_x,LowerInterfacePlane,LowerIP_py);
-  UpperConeSide2[1].set(-(PMTInterfaceOpeningX+2.0*mm)/2,UpperInterfacePlane,((PMTInterfaceOpeningZ+2.0*mm)/2+QuartzToPMTOffsetInZ));
-  UpperConeSide2[2].set(-(PMTInterfaceOpeningX+2.0*mm)/2,UpperInterfacePlane,-((PMTInterfaceOpeningZ+2.0*mm)/2+QuartzToPMTOffsetInZ));
-  UpperConeSide2[3].set(-LowerIP_x,LowerInterfacePlane,LowerIP_ny);
-  UpperConeSide2[4].set(-LowerIP_x,LowerInterfacePlane,LowerIP_py);
+  UpperConeSide2[0].set(-LowerIP_x,LowerInterfacePlane,LowerIP_pz);
+  UpperConeSide2[1].set(-(PMTInterfaceOpeningX+2.0*mm)/2,UpperInterfacePlane,(PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ);
+  UpperConeSide2[2].set(-(PMTInterfaceOpeningX+2.0*mm)/2,UpperInterfacePlane,-(PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ);
+  UpperConeSide2[3].set(-LowerIP_x,LowerInterfacePlane,LowerIP_nz);
+  UpperConeSide2[4].set(-LowerIP_x,LowerInterfacePlane,LowerIP_pz);
 
-  UpperConeTop[0].set((PMTInterfaceOpeningX+2.0*mm)/2,UpperInterfacePlane,-((PMTInterfaceOpeningZ+2.0*mm)/2+QuartzToPMTOffsetInZ));
-  UpperConeTop[1].set(-(PMTInterfaceOpeningX+2.0*mm)/2,UpperInterfacePlane,-((PMTInterfaceOpeningZ+2.0*mm)/2+QuartzToPMTOffsetInZ));
-  UpperConeTop[2].set(-(PMTInterfaceOpeningX+2.0*mm)/2,UpperInterfacePlane,((PMTInterfaceOpeningZ+2.0*mm)/2+QuartzToPMTOffsetInZ));
-  UpperConeTop[3].set((PMTInterfaceOpeningX+2.0*mm)/2,UpperInterfacePlane,((PMTInterfaceOpeningZ+2.0*mm)/2+QuartzToPMTOffsetInZ));
-  UpperConeTop[4].set((PMTInterfaceOpeningX+2.0*mm)/2,UpperInterfacePlane,-((PMTInterfaceOpeningZ+2.0*mm)/2+QuartzToPMTOffsetInZ));
+  UpperConeTop[0].set((PMTInterfaceOpeningX+2.0*mm)/2,UpperInterfacePlane,-(PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ);
+  UpperConeTop[1].set(-(PMTInterfaceOpeningX+2.0*mm)/2,UpperInterfacePlane,-(PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ);
+  UpperConeTop[2].set(-(PMTInterfaceOpeningX+2.0*mm)/2,UpperInterfacePlane,(PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ);
+  UpperConeTop[3].set((PMTInterfaceOpeningX+2.0*mm)/2,UpperInterfacePlane,(PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ);
+  UpperConeTop[4].set((PMTInterfaceOpeningX+2.0*mm)/2,UpperInterfacePlane,-(PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ);
 
   STLFile.open("LightGuideGeom.stl");
   STLFile << std::scientific;
@@ -534,18 +534,18 @@ void MOLLEROptDetectorLightGuide::GetLightGuideLowerConeSideVertices(std::vector
 
   // (*Vertices)[1] = LowerConeVertices_out[1];
 
-  // LowerConeVertices_out[4] = G4TwoVector(LowerIP_x,LowerIP_ny);
-  // LowerConeVertices_out[5] = G4TwoVector(-LowerIP_x,LowerIP_ny);
-  // LowerConeVertices_out[6] = G4TwoVector(-LowerIP_x,LowerIP_py);
-  // LowerConeVertices_out[7] = G4TwoVector(LowerIP_x,LowerIP_py);
+  // LowerConeVertices_out[4] = G4TwoVector(LowerIP_x,LowerIP_nz);
+  // LowerConeVertices_out[5] = G4TwoVector(-LowerIP_x,LowerIP_nz);
+  // LowerConeVertices_out[6] = G4TwoVector(-LowerIP_x,LowerIP_pz);
+  // LowerConeVertices_out[7] = G4TwoVector(LowerIP_x,LowerIP_pz);
   
-  // UpperConeVertices_out[0] = G4TwoVector(LowerIP_x,LowerIP_ny);
-  // UpperConeVertices_out[1] = G4TwoVector(-LowerIP_x,LowerIP_ny);
-  // UpperConeVertices_out[2] = G4TwoVector(-LowerIP_x,LowerIP_py);
-  // UpperConeVertices_out[3] = G4TwoVector(LowerIP_x,LowerIP_py);
+  // UpperConeVertices_out[0] = G4TwoVector(LowerIP_x,LowerIP_nz);
+  // UpperConeVertices_out[1] = G4TwoVector(-LowerIP_x,LowerIP_nz);
+  // UpperConeVertices_out[2] = G4TwoVector(-LowerIP_x,LowerIP_pz);
+  // UpperConeVertices_out[3] = G4TwoVector(LowerIP_x,LowerIP_pz);
 
-  // UpperConeVertices_out[4] = G4TwoVector((PMTInterfaceOpeningX+2.0*mm)/2,-((PMTInterfaceOpeningZ+2.0*mm)/2+QuartzToPMTOffsetInZ));
-  // UpperConeVertices_out[5] = G4TwoVector(-(PMTInterfaceOpeningX+2.0*mm)/2,-((PMTInterfaceOpeningZ+2.0*mm)/2+QuartzToPMTOffsetInZ));
+  // UpperConeVertices_out[4] = G4TwoVector((PMTInterfaceOpeningX+2.0*mm)/2,-((PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ));
+  // UpperConeVertices_out[5] = G4TwoVector(-(PMTInterfaceOpeningX+2.0*mm)/2,-((PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ));
   // UpperConeVertices_out[6] = G4TwoVector(-(PMTInterfaceOpeningX+2.0*mm)/2,(PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ);
   // UpperConeVertices_out[7] = G4TwoVector((PMTInterfaceOpeningX+2.0*mm)/2,(PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ);
 
