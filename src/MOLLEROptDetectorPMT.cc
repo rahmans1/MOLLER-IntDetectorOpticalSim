@@ -21,10 +21,11 @@ MOLLEROptDetectorPMT::MOLLEROptDetectorPMT(MOLLEROptTrackingReadout *TrRO, G4Str
   PMTCathodeBorderSurface = NULL;
   PMTWindowLogicalSkinSurface = NULL;
 
-  CathodeRadius = 4.5*cm;
+  CathodeRadius = 3.5*cm;
+  WindowRadius = 3.875*cm;
   CathodeThickness = 0.1*cm;
   PMTThickness = 5.0*cm;
-  PMTWindowThickness = 0.1*cm;
+  PMTWindowThickness = 0.35*cm;
   
   PositionX = 0.0*cm;
   PositionY = 0.0*cm; 
