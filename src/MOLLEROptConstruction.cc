@@ -73,7 +73,7 @@ G4VPhysicalVolume* MOLLEROptConstruction::Construct()
   Detector->SetPMTInterfaceOpeningZ(5.6*cm);
   Detector->SetPMTInterfaceOpeningX(5.6*cm);  
   Detector->SetQuartzToPMTOffsetInZ(-0.3*cm);
-  Detector->SetPMTCathodeRadius(3.81*cm);
+  Detector->SetPMTCathodeRadius(3.5*cm);
   Detector->SetPMTCathodeThickness(0.1*cm);
   Detector->SetAzimuthalRotationAngle(0);
   Detector->SetPolarRotationAngle(0);

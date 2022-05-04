@@ -85,6 +85,7 @@ private:
   G4double CathodeThickness;
 
   G4double PMTThickness;
+  G4double WindowRadius;
   G4double PMTWindowThickness;
 
   G4ThreeVector     Position;
