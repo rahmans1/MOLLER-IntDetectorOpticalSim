@@ -15,8 +15,8 @@ parser.add_argument("-R", dest="ring_id", action = "store", required= True, help
 
 args=parser.parse_args()
 
-LightGuideLowerConeBackAngle = np.arange(12,25,1)
-LightGuideLowerConeFrontAngle = np.arange(12,25,1)
+LightGuideLowerConeBackAngle = np.arange(14,25,1)
+LightGuideLowerConeFrontAngle = np.arange(14,30,1)
 LightGuideLowerInterface = np.arange(75,76,1)
 LightGuideUpperInterface = np.arange(611,612,1)
 LightGuidePMTInterfaceOpeningX = np.arange(70,71,1)
