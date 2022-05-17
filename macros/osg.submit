@@ -16,8 +16,8 @@ log = logs/Run1/Ring2/Quartz/log.$(ProcId)
 
 # request resources
 #request_cpus = 1
-#request_memory = 500 MB
-#request_disk = 800 MB
+#request_memory = 1 GB
+#request_disk = 1 GB
 
 # number of jobs to run
 queue input from input/Run1/Ring2/Quartz.txt
