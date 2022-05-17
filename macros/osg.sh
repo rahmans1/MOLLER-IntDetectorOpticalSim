@@ -32,11 +32,11 @@ cat << EOF | ${EICSHELL}
   cmake ..
   make 
   ./MOLLEROpt $config
-  cp ../macros/osgExtract.C .
-  root -q -b osgExtract.C'("${fname}.root","${fname}.out")' 
-  ls *.root
-  ls *.out
+  cd ..
+  cp macros/osgExtract.C .
+  root -q -b osgExtract.C'("build/${fname}.root","${fname}.out")' 
+  ls ${fname}.out
   cat ${fname}.out
 EOF
 
-stashcp MOLLER-IntDetectorOpticalSim/build/${fname}.root stash:///osgconnect/public/rahmans1/${fname}.root
+stashcp MOLLER-IntDetectorOpticalSim/${fname}.out stash:///osgconnect/public/rahmans1/${fname}.out
