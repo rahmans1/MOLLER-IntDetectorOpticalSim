@@ -34,14 +34,13 @@ HitRegion = ["Quartz", "LowerLg", "UpperLg"]
 
 jsub_dir=os.path.realpath(args.jsub_dir+"/input/Run"+args.run_id+"/Ring"+args.ring_id+"/"+str(HitRegion[int(args.hit_region)-1]))
 log_dir= os.path.realpath(args.jsub_dir+"/logs/Run"+args.run_id+"/Ring"+args.ring_id+"/"+str(HitRegion[int(args.hit_region)-1]))
-#ut_dir= os.path.realpath("/public/rahmans1/output/"+args.run_id+"/"+args.ring_id+"/"+str(HitRegion[int(args.hit_region)-1]))
+
+inputlist=open(args.jsub_dir+"/input/Run"+args.run_id+"/Ring"+args.ring_id+"/"+str(HitRegion[int(args.hit_region)-1])+".txt","w")
 
 if not os.path.exists(jsub_dir):
         os.system("mkdir -p "+jsub_dir)
 if not os.path.exists(log_dir):
         os.system("mkdir -p "+log_dir)
-#if not os.path.exists(out_dir):
-#        os.system("mkdir -p "+out_dir)
 
 count=1 
 for ba in LightGuideLowerConeBackAngle:
@@ -60,6 +59,7 @@ for ba in LightGuideLowerConeBackAngle:
                           for pr in PolarRotation:
                             for off in LightGuideQuartzToPMTOffset:
                               config= "config"+str(count)
+                              inputlist.write("input/Run"+args.run_id+"/Ring"+args.ring_id+"/"+str(HitRegion[int(args.hit_region)-1])+"/"+config+"\n")
                               seed = args.run_id+str(count)+" "+str(int(time.time()))
                               jsubf=open(jsub_dir+"/"+config, "w")
                               jsubf.write("/Det/LightGuideLowerConeBackAngle "+str(ba)+" deg\n")
@@ -85,3 +85,4 @@ for ba in LightGuideLowerConeBackAngle:
                               jsubf.write("/run/beamOn "+str(args.n_events)+"\n")
                               jsubf.close()
                               count += 1
+inputlist.close()
