@@ -1,8 +1,7 @@
-Int osgExtract(TString input, TString o_fname){
+Int_t osgExtract(TString fname, TString o_fname){
 
 std::ofstream ofs (o_fname.Data(), std::ofstream::out);
-TString fname = input;
-if(!gSystem->AccessPathName(fname)){
+
   
 TFile *f=new TFile(fname);
 TH1F* pe =(TH1F*) f->Get("PhotoElectronDistrHist");
@@ -24,7 +23,7 @@ double QuartzRotation=((TVectorT<double>*) f->Get("QuartzRotation"))[0][0];
 double DetectorRotation=((TVectorT<double>*) f->Get("DetectorRotation"))[0][0];
 double HitRegion=((TVectorT<double>*) f->Get("HitRegion"))[0][0];
 
-
+TString out="";
 out+= Form("%f,", QuartzSizeX);
 out+= Form("%f,", QuartzSizeY);
 out+= Form("%f,", QuartzSizeZ);
@@ -46,7 +45,7 @@ out+= Form("%f,", pe->GetMean());
 out+= Form("%f\n", pow(pe->GetRMS()/pe->GetMean(),2));
 
 f->Close();
-}
+
 
 ofs << out.Data();
 ofs.close();

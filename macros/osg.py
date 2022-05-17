@@ -80,9 +80,8 @@ for ba in LightGuideLowerConeBackAngle:
                               jsubf.write("/Det/UpdateGeometry\n")
                               jsubf.write("/Generator/EventHitRegion "+args.hit_region+"\n")
                               jsubf.write("/RunAction/SetOutputName Run"+args.run_id+"_Ring"+args.ring_id+"_"+str(HitRegion[int(args.hit_region)-1])+"_Config \n")                 
-                              jsubf.write("/RunAction/SetID "+args.run_id+"\n")
+                              jsubf.write("/RunAction/SetID "+str(count)+"\n")
                               jsubf.write("/random/setSeeds "+seed+"\n")
                               jsubf.write("/run/beamOn "+str(args.n_events)+"\n")
                               jsubf.close()
                               count += 1
-
