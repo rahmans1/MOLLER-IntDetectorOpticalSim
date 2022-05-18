@@ -15,15 +15,15 @@ parser.add_argument("-R", dest="ring_id", action = "store", required= True, help
 
 args=parser.parse_args()
 
-LightGuideLowerConeBackAngle = np.arange(14,25,1)
-LightGuideLowerConeFrontAngle = np.arange(14,30,1)
+LightGuideLowerConeBackAngle = np.arange(14,30,1)
+LightGuideLowerConeFrontAngle = np.arange(14,25,1)
 LightGuideLowerInterface = np.arange(75,76,1)
-LightGuideUpperInterface = np.arange(564,565,1)
+LightGuideUpperInterface = np.arange(463,464,1)
 LightGuidePMTInterfaceOpeningX = np.arange(70,71,1)
 LightGuidePMTInterfaceOpeningZ = np.arange(70,71,1)
 QuartzSizeZ = np.arange(20,21,1)
-QuartzSizeX = np.arange(189,190,1)
-QuartzSizeY = np.arange(60,61,1)
+QuartzSizeX = np.arange(211,212,1)
+QuartzSizeY = np.arange(120,121,1)
 LightGuideQuartzInterfaceOpeningX = QuartzSizeX+8
 LightGuideQuartzInterfaceOpeningZ = QuartzSizeZ+7
 QuartzBevelSize = 0.5*np.arange(1,2,1)

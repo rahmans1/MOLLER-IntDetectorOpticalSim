@@ -3,14 +3,14 @@ executable = osg.sh
 arguments = $(input)
 environment = osgName=$ENV(USER)
 
-transfer_input_files = input/Run1/Ring3/Quartz/$(input)
+transfer_input_files = input/Run1/Ring4/Quartz/$(input)
  
 
 Requirements = (HAS_SINGULARITY == TRUE)
 +SingularityImage = "/cvmfs/singularity.opensciencegrid.org/eicweb/jug_xl:nightly"
-output = logs/Run1/Ring2/Quartz/out.$(ProcId)
-error = logs/Run1/Ring2/Quartz/err.$(ProcId)
-log = logs/Run1/Ring2/Quartz/log.$(ProcId)
+output = logs/Run1/Ring4/Quartz/out.$(ProcId)
+error = logs/Run1/Ring4/Quartz/err.$(ProcId)
+log = logs/Run1/Ring4/Quartz/log.$(ProcId)
 
 
 
@@ -20,4 +20,4 @@ request_memory = 1 GB
 request_disk = 1 GB
 
 # number of jobs to run
-queue input from input/Run1/Ring3/Quartz.txt
+queue input from input/Run1/Ring4/Quartz.txt
