@@ -3,7 +3,7 @@ executable = osg.sh
 arguments = $(input)
 environment = osgName=$ENV(USER)
 
-transfer_input_files = input/Run1/Ring2/Quartz/$(input)
+transfer_input_files = input/Run1/Ring3/Quartz/$(input)
  
 
 Requirements = (HAS_SINGULARITY == TRUE)
@@ -15,9 +15,9 @@ log = logs/Run1/Ring2/Quartz/log.$(ProcId)
 
 
 # request resources
-#request_cpus = 1
-#request_memory = 1 GB
-#request_disk = 1 GB
+request_cpus = 1
+request_memory = 1 GB
+request_disk = 1 GB
 
 # number of jobs to run
-queue input from input/Run1/Ring2/Quartz.txt
+queue input from input/Run1/Ring3/Quartz.txt

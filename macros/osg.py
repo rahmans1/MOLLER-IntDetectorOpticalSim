@@ -18,11 +18,11 @@ args=parser.parse_args()
 LightGuideLowerConeBackAngle = np.arange(14,25,1)
 LightGuideLowerConeFrontAngle = np.arange(14,30,1)
 LightGuideLowerInterface = np.arange(75,76,1)
-LightGuideUpperInterface = np.arange(611,612,1)
+LightGuideUpperInterface = np.arange(564,565,1)
 LightGuidePMTInterfaceOpeningX = np.arange(70,71,1)
 LightGuidePMTInterfaceOpeningZ = np.arange(70,71,1)
 QuartzSizeZ = np.arange(20,21,1)
-QuartzSizeX = np.arange(177,178,1)
+QuartzSizeX = np.arange(189,190,1)
 QuartzSizeY = np.arange(60,61,1)
 LightGuideQuartzInterfaceOpeningX = QuartzSizeX+8
 LightGuideQuartzInterfaceOpeningZ = QuartzSizeZ+7
@@ -35,12 +35,13 @@ HitRegion = ["Quartz", "LowerLg", "UpperLg"]
 jsub_dir=os.path.realpath(args.jsub_dir+"/input/Run"+args.run_id+"/Ring"+args.ring_id+"/"+str(HitRegion[int(args.hit_region)-1]))
 log_dir= os.path.realpath(args.jsub_dir+"/logs/Run"+args.run_id+"/Ring"+args.ring_id+"/"+str(HitRegion[int(args.hit_region)-1]))
 
-inputlist=open(args.jsub_dir+"/input/Run"+args.run_id+"/Ring"+args.ring_id+"/"+str(HitRegion[int(args.hit_region)-1])+".txt","w")
-
 if not os.path.exists(jsub_dir):
         os.system("mkdir -p "+jsub_dir)
 if not os.path.exists(log_dir):
         os.system("mkdir -p "+log_dir)
+
+inputlist=open(args.jsub_dir+"/input/Run"+args.run_id+"/Ring"+args.ring_id+"/"+str(HitRegion[int(args.hit_region)-1])+".txt","w")
+
 
 count=1 
 for ba in LightGuideLowerConeBackAngle:
