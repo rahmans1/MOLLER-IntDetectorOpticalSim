@@ -26,6 +26,9 @@ private:
   G4UIcmdWithoutParameter* resetCmd;
   G4UIcmdWithAnInteger     *InitEventCounterCmd;
   G4UIcmdWithAnInteger     *EventHitRegionCmd;
+  G4UIcmdWithADoubleAndUnit *EventHitRegionCenterOffsetXCmd;
+  G4UIcmdWithADoubleAndUnit *EventHitRegionCenterOffsetYCmd;
+
 
 };
 
