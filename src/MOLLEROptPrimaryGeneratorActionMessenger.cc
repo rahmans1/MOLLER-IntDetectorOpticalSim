@@ -30,6 +30,20 @@ MOLLEROptPrimaryGeneratorActionMessenger::MOLLEROptPrimaryGeneratorActionMesseng
   EventHitRegionCmd->SetDefaultValue(1);
   EventHitRegionCmd->SetRange("EventHitRegion>=1");
   EventHitRegionCmd->AvailableForStates(G4State_PreInit,G4State_Idle);
+    
+  EventHitRegionCenterOffsetXCmd = new G4UIcmdWithADoubleAndUnit("/Generator/EventHitRegionCenterOffsetX",this);
+  EventHitRegionCenterOffsetXCmd->SetGuidance("Set position offset for event hit region center in X.");
+  EventHitRegionCenterOffsetXCmd->SetParameterName("EventHitRegionCenterOffsetX",true);
+  EventHitRegionCenterOffsetXCmd->SetDefaultValue(0);
+  EventHitRegionCenterOffsetXCmd->SetDefaultUnit("mm");
+  EventHitRegionCenterOffsetXCmd->AvailableForStates(G4State_PreInit,G4State_Idle);
+
+  EventHitRegionCenterOffsetYCmd = new G4UIcmdWithADoubleAndUnit("/Generator/EventHitRegionCenterOffsetY",this);
+  EventHitRegionCenterOffsetYCmd->SetGuidance("Set position offset for event hit region center in Y.");
+  EventHitRegionCenterOffsetYCmd->SetParameterName("EventHitRegionCenterOffsetY",true);
+  EventHitRegionCenterOffsetYCmd->SetDefaultValue(0);
+  EventHitRegionCenterOffsetYCmd->SetDefaultUnit("mm");
+  EventHitRegionCenterOffsetYCmd->AvailableForStates(G4State_PreInit,G4State_Idle);
 
 }
 
@@ -50,4 +64,11 @@ void MOLLEROptPrimaryGeneratorActionMessenger::SetNewValue(G4UIcommand* command,
 
   if( command == EventHitRegionCmd )
     { pPrimaryGeneratorAction->SetEventHitRegion(EventHitRegionCmd->GetNewIntValue(newValue)); }
+  
+  if( command == EventHitRegionCenterOffsetXCmd )
+    { pPrimaryGeneratorAction->SetEventHitRegionCenterOffsetX(EventHitRegionCenterOffsetXCmd->GetNewDoubleValue(newValue)); }
+
+  if( command == EventHitRegionCenterOffsetYCmd )
+    { pPrimaryGeneratorAction->SetEventHitRegionCenterOffsetY(EventHitRegionCenterOffsetYCmd->GetNewDoubleValue(newValue)); }
+
 }

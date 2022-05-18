@@ -24,12 +24,15 @@ public:
   void ResetNtupleEventCounter() {EventCounter = 0;};
   void SetNtupleEventCounter(G4int cnt) {EventCounter = cnt;};
   void SetEventHitRegion(G4int reg) {EventRegion = reg; Construction->SetEventHitRegion(reg);};
-    
+  void SetEventHitRegionCenterOffsetX(G4double offx) {EventRegionOffsetX = offx;}
+  void SetEventHitRegionCenterOffsetY(G4double offy) {EventRegionOffsetY = offy;}    
   
 private:
 
   G4int EventRegion;
   G4int EventCounter;
+  G4double EventRegionOffsetX;
+  G4double EventRegionOffsetY;
   
   G4ParticleGun* particleGun;
 

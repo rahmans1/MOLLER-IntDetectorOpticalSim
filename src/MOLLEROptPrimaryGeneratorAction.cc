@@ -7,6 +7,8 @@ MOLLEROptPrimaryGeneratorAction::MOLLEROptPrimaryGeneratorAction(MOLLEROptConstr
 
   EventCounter = 0;
   EventRegion = 1; 
+  EventRegionOffsetX = 0;
+  EventRegionOffsetY = 0;
 
   G4int n_particle = 1;
   particleGun = new G4ParticleGun(n_particle);
@@ -71,18 +73,18 @@ void MOLLEROptPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   }
   else if(EventRegion == 4){
     //2x2 mm^2 spot on quartz
-    x = (Qlim[1]+Qlim[0])/2.0 -2 +4*G4UniformRand();
-    y = (Qlim[3]+Qlim[2])/2.0 -2 +4*G4UniformRand();
+    x = (Qlim[1]+Qlim[0])/2.0 -2 +4*G4UniformRand()+EventRegionOffsetX;
+    y = (Qlim[3]+Qlim[2])/2.0 -2 +4*G4UniformRand()+EventRegionOffsetY;
   }
   else if(EventRegion == 5){
     //2x2 mm^2 spot on lower guide cone
-    x = (LGlim[1]+LGlim[0])/2.0 -2 +4*G4UniformRand();
-    y = (LGlim[3]+LGlim[2])/2.0 -2 +4*G4UniformRand();
+    x = (LGlim[1]+LGlim[0])/2.0 -2 +4*G4UniformRand()+EventRegionOffsetX;
+    y = (LGlim[3]+LGlim[2])/2.0 -2 +4*G4UniformRand()+EventRegionOffsetY;
   }  
   else if(EventRegion == 6){
     //2x2 mm^2 spot on upper guide cone
-    x = (LGlim[5]+LGlim[4])/2.0 -2 +4*G4UniformRand();
-    y = (LGlim[7]+LGlim[6])/2.0 -2 +4*G4UniformRand();
+    x = (LGlim[5]+LGlim[4])/2.0 -2 +4*G4UniformRand()+EventRegionOffsetX;
+    y = (LGlim[7]+LGlim[6])/2.0 -2 +4*G4UniformRand()+EventRegionOffsetY;
   }  
   else{ 
     //On Quartz
