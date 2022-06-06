@@ -44,7 +44,7 @@ MOLLEROptDetectorLightGuide::MOLLEROptDetectorLightGuide(MOLLEROptTrackingReadou
   thisName = name+"_LG";
 
   LowerInterfacePlane     = 5.6*cm;
-  MiddleBoxHeight         = 10.0*cm
+  MiddleBoxHeight         = 10.0*cm;
   UpperInterfacePlane     = 25.0*cm;
   LowerConeFrontFaceAngle = 28*TMath::Pi()/180*rad;                            
   LowerConeBackFaceAngle  =  22*TMath::Pi()/180*rad;
@@ -273,7 +273,7 @@ void MOLLEROptDetectorLightGuide::DefineGeometry()
   UpperConeVertices[6] = G4TwoVector(-PMTInterfaceOpeningX/2,PMTInterfaceOpeningZ/2-QuartzToPMTOffsetInZ);
   UpperConeVertices[7] = G4TwoVector(PMTInterfaceOpeningX/2,PMTInterfaceOpeningZ/2-QuartzToPMTOffsetInZ);  
 
-  G4Box *GuideMiddleBoxSolid = new G4Box(thisName+"_InnerSolid",LowerIP_x,(LowerIP_py-LowerIP_ny)/2,MiddleBoxHeight/2);
+  G4Box *GuideMiddleBoxSolid = new G4Box(thisName+"_InnerSolid",LowerIP_x,(LowerIP_pz-LowerIP_nz)/2,MiddleBoxHeight/2);
   
   //now do the outer surface ******************************************************************************************************
 
@@ -301,7 +301,7 @@ void MOLLEROptDetectorLightGuide::DefineGeometry()
   UpperConeVertices_out[6] = G4TwoVector(-(PMTInterfaceOpeningX+2.0*mm)/2,(PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ);
   UpperConeVertices_out[7] = G4TwoVector((PMTInterfaceOpeningX+2.0*mm)/2,(PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ);
 	
-  G4Box *GuideMiddleBoxSolid = new G4Box(thisName+"_InnerSolid",LowerIP_x,(LowerIP_py-LowerIP_ny)/2,MiddleBoxHeight/2);	
+  G4Box *GuideMiddleBoxSolid = new G4Box(thisName+"_InnerSolid",LowerIP_x,(LowerIP_pz-LowerIP_nz)/2,MiddleBoxHeight/2);	
 
   //******************************************************************************************************************************
 
