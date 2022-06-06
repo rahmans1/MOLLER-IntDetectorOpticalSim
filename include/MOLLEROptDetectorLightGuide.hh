@@ -49,7 +49,7 @@ public:
   void SetPMTOpeningRadius(G4double val)          {PMTOpeningRadius = val;};
 
   G4double GetCurrentLowerInterfacePlane()     {return LowerInterfacePlane;};
-  G4double GetMiddleBoxHeight()     {return MiddleBoxHeight;};
+  G4double GetCurrentMiddleBoxHeight()         {return MiddleBoxHeight;};
   G4double GetCurrentUpperInterfacePlane()     {return UpperInterfacePlane;};
   G4double GetCurrentLowerConeFrontFaceAngle() {return LowerConeFrontFaceAngle;};
   G4double GetCurrentLowerConeBackFaceAngle()  {return LowerConeBackFaceAngle;};
