@@ -89,6 +89,11 @@ private:
   MOLLEROptMaterial*  Materials;
 
   G4VPhysicalVolume* Mother;
+  
+  G4Box*              GuideMiddleBoxSolid; 
+  G4Box*              GuideMiddleBoxSolid_out; 
+  G4UnionSolid*	      IntermediateInnerSolid; 
+  G4UnionSolid*	      IntermediateOuterSolid; 
 
   G4Tubs*            GuideTopCutoutSolid;
   G4Box*             GuideTopBoxSolid;
