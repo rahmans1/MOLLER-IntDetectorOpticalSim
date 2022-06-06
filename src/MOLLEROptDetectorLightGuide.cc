@@ -310,7 +310,7 @@ void MOLLEROptDetectorLightGuide::DefineGeometry()
   UpperConeVertices_out[6] = G4TwoVector(-(PMTInterfaceOpeningX+2.0*mm)/2,(PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ);
   UpperConeVertices_out[7] = G4TwoVector((PMTInterfaceOpeningX+2.0*mm)/2,(PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ);
 	
-  G4Box *GuideMiddleBoxSolid = new G4Box(thisName+"_InnerSolid",LowerIP_x,(LowerIP_pz-LowerIP_nz)/2,MiddleBoxHeight/2);	
+  G4Box *GuideMiddleBoxSolid_out = new G4Box(thisName+"_OuterSolid",LowerIP_x,(LowerIP_pz-LowerIP_nz)/2,MiddleBoxHeight/2);	
 
   //******************************************************************************************************************************
 
