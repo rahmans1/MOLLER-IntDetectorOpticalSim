@@ -33,6 +33,7 @@ public:
 
 
   void SetLowerInterfacePlane(G4double LowerPlane){LowerInterfacePlane = LowerPlane;};
+  void SetMiddleBoxHeight(G4double MiddlePlane){MiddleBoxHeight = MiddlePlane;};
   void SetUpperInterfacePlane(G4double UpperPlane){UpperInterfacePlane = UpperPlane; GuideTotalLength = UpperPlane;};
   void SetLowerConeFrontFaceAngle(G4double angle) {LowerConeFrontFaceAngle = angle;};
   void SetLowerConeBackFaceAngle(G4double angle)  {LowerConeBackFaceAngle = angle;};
@@ -48,6 +49,7 @@ public:
   void SetPMTOpeningRadius(G4double val)          {PMTOpeningRadius = val;};
 
   G4double GetCurrentLowerInterfacePlane()     {return LowerInterfacePlane;};
+  G4double GetMiddleBoxHeight()     {return MiddleBoxHeight;};
   G4double GetCurrentUpperInterfacePlane()     {return UpperInterfacePlane;};
   G4double GetCurrentLowerConeFrontFaceAngle() {return LowerConeFrontFaceAngle;};
   G4double GetCurrentLowerConeBackFaceAngle()  {return LowerConeBackFaceAngle;};
@@ -153,6 +155,7 @@ private:
   G4ThreeVector UpperConeTop[5];
 
   G4double LowerInterfacePlane; //See function SetInterfacePlanes(..) for explanation 
+  G4double MiddleBoxHeight;     // Straight Middle Section
   G4double UpperInterfacePlane;
 
   G4double LowerConeFrontFaceAngle; //Front meaning beam upstream and the angle (theta)
