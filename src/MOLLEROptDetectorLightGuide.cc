@@ -10,10 +10,11 @@
              _____  PMT window _____   Upper Interface Plane
                   /           \
     upper cone   /             \ 
-           ____ /               \___   Lower Interface Plane
-                \               /
-    lower cone   \    .        /
-                  \   . .     /
+           _____/               \_____   Middle Interface Plane 
+ mid section    |		|
+           _____|               |_____   Lower Interface Plane 
+    lower cone   \        .    /
+                  \     . .   /
               _____\  .   .  /______  y = 0     
                       .   .
                       .   .
@@ -44,6 +45,7 @@ MOLLEROptDetectorLightGuide::MOLLEROptDetectorLightGuide(MOLLEROptTrackingReadou
   thisName = name+"_LG";
 
   LowerInterfacePlane     = 5.6*cm;
+  MiddleBoxHeight         = 10.0*cm
   UpperInterfacePlane     = 25.0*cm;
   LowerConeFrontFaceAngle = 28*TMath::Pi()/180*rad;                            
   LowerConeBackFaceAngle  =  22*TMath::Pi()/180*rad;
@@ -280,7 +282,7 @@ void MOLLEROptDetectorLightGuide::DefineGeometry()
   UpperConeVertices[6] = G4TwoVector(-PMTInterfaceOpeningX/2,PMTInterfaceOpeningZ/2-QuartzToPMTOffsetInZ);
   UpperConeVertices[7] = G4TwoVector(PMTInterfaceOpeningX/2,PMTInterfaceOpeningZ/2-QuartzToPMTOffsetInZ);  
 
-
+  G4Box *GuideMiddleBoxSolid = new G4Box(thisName+"_InnerSolid",LowerIP_x,(LowerIP_py-LowerIP_ny)/2,MiddleBoxHeight/2);
   
   //now do the outer surface ******************************************************************************************************
 
@@ -307,6 +309,8 @@ void MOLLEROptDetectorLightGuide::DefineGeometry()
   UpperConeVertices_out[5] = G4TwoVector(-(PMTInterfaceOpeningX+2.0*mm)/2,-(PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ);
   UpperConeVertices_out[6] = G4TwoVector(-(PMTInterfaceOpeningX+2.0*mm)/2,(PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ);
   UpperConeVertices_out[7] = G4TwoVector((PMTInterfaceOpeningX+2.0*mm)/2,(PMTInterfaceOpeningZ+2.0*mm)/2-QuartzToPMTOffsetInZ);
+	
+  G4Box *GuideMiddleBoxSolid = new G4Box(thisName+"_InnerSolid",LowerIP_x,(LowerIP_py-LowerIP_ny)/2,MiddleBoxHeight/2);	
 
   //******************************************************************************************************************************
 
@@ -322,13 +326,20 @@ void MOLLEROptDetectorLightGuide::DefineGeometry()
   
   
   G4RotationMatrix *rot = new G4RotationMatrix;
-  G4ThreeVector  trans = G4ThreeVector(0,0,UpperInterfacePlane/2);
-
   
+  //********************* Adding the box between the cones ************************************************************
+  
+  G4ThreeVector  trans = G4ThreeVector(0,LowerInterfacePlane*(TMath::Tan(LowerConeFrontFaceAngle) - TMath::Tan(LowerConeBackFaceAngle))/2,(LowerInterfacePlane+MiddleBoxHeight)/2);
+  
+  IntermediateInnerSolid = new G4UnionSolid(thisName+"_InnerSolid",LowerCone,GuideMiddleBoxSolid,rot,trans);
+  IntermediateOuterSolid = new G4UnionSolid(thisName+"_OuterSolid",LowerCone_out,GuideMiddleBoxSolid_out,rot,trans);
+  	
   //********************* Define the shell that is the guide **********************************************************
+	
+  trans = G4ThreeVector(0,0,UpperInterfacePlane/2 + MiddleBoxHeight); 
   
-  InnerSolid = new G4UnionSolid(thisName+"_InnerSolid",LowerCone,UpperCone,rot,trans);
-  OuterSolid = new G4UnionSolid(thisName+"_OuterSolid",LowerCone_out,UpperCone_out,rot,trans);
+  InnerSolid = new G4UnionSolid(thisName+"_InnerSolid",IntermediateInnerSolid,UpperCone,rot,trans);
+  OuterSolid = new G4UnionSolid(thisName+"_OuterSolid",IntermediateOuterSolid,UpperCone_out,rot,trans);
 
   G4SubtractionSolid *tempSolid = new G4SubtractionSolid(thisName+"_Temp_Solid",OuterSolid,InnerSolid);
   
