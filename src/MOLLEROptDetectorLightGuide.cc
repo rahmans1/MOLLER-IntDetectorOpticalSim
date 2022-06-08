@@ -462,6 +462,14 @@ void MOLLEROptDetectorLightGuide::ExportGeometrySTL()
   WriteSTLFacet(&LowerConeBack[2]);
   WriteSTLFacet(LowerConeSide2);
   WriteSTLFacet(&LowerConeSide2[2]);
+  WriteSTLFacet(MiddleBoxFront);
+  WriteSTLFacet(&MiddleBoxFront[2]);
+  WriteSTLFacet(MiddleBoxSide1);
+  WriteSTLFacet(&MiddleBoxSide1[2]);
+  WriteSTLFacet(MiddleBoxBack);
+  WriteSTLFacet(&MiddleBoxBack[2]);
+  WriteSTLFacet(MiddleBoxSide2);
+  WriteSTLFacet(&MiddleBoxSide2[2]);	
   WriteSTLFacet(UpperConeFront);
   WriteSTLFacet(&UpperConeFront[2]);
   WriteSTLFacet(UpperConeBack);
