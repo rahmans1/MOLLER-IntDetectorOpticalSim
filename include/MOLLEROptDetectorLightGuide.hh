@@ -147,6 +147,12 @@ private:
   G4ThreeVector LowerConeBack[5];
   G4ThreeVector LowerConeSide1[5];
   G4ThreeVector LowerConeSide2[5];
+  
+  G4ThreeVector MiddleBoxBottom[5];
+  G4ThreeVector MiddleBoxFront[5];
+  G4ThreeVector MiddleBoxBack[5];
+  G4ThreeVector MiddleBoxSide1[5];
+  G4ThreeVector MiddleBoxSide2[5];
          
   G4ThreeVector UpperConeFront[5];
   G4ThreeVector UpperConeBack[5];
